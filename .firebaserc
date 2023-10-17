@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "link-sharing-app-76d2e": {
+      "hosting": {
+        "link-sharing-app": [
+          "link-sharing-app-76d2e"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "link-sharing-app-76d2e"
+  }
+}
