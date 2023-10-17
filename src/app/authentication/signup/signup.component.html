@@ -1,1 +1,72 @@
-<p>signup works!</p>
+<div class="signup-container">
+  <div class="heading">
+    <div class="header">Create account</div>
+    <div class="description">Let’s get you started sharing your links!</div>
+  </div>
+
+  <form #heroForm="ngForm">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <div class="input-container">
+        <img
+          class="input-icon"
+          src="../../../assets/images/icon-email.svg"
+          alt="email icon"
+        />
+        <input
+          id="email"
+          type="email"
+          required
+          name="email"
+          placeholder="e.g. alex@email.com"
+          [(ngModel)]="model.email"
+        />
+      </div>
+    </div>
+    <div class="form-group" [class.validationError]="false">
+      <label for="password">Password</label>
+      <div class="input-container">
+        <img
+          class="input-icon"
+          src="../../../assets/images/icon-password.svg"
+          alt="email icon"
+        />
+        <input
+          id="password"
+          type="password"
+          required
+          name="password"
+          placeholder="At least 8 characters"
+          [(ngModel)]="model.password"
+        />
+        <div class="validation-message" *ngIf="false">Can't be empty</div>
+      </div>
+    </div>
+    <div class="form-group" [class.validationError]="false">
+      <label for="confirmPassword">Confirm password</label>
+      <div class="input-container">
+        <img
+          class="input-icon"
+          src="../../../assets/images/icon-password.svg"
+          alt="email icon"
+        />
+        <input
+          id="confirmPassword"
+          type="password"
+          required
+          name="confirmPassword"
+          placeholder="At least 8 characters"
+          [(ngModel)]="model.confirmPassword"
+        />
+        <div class="validation-message" *ngIf="false">Can't be empty</div>
+      </div>
+    </div>
+    <div class="password-requirement">Password must contains at least 8 characters</div>
+    <div class="signup-button" (click)="onSignUp()">Create new account</div>
+  </form>
+
+  <div class="footer">
+    <div class="footer-description">Already have an account?</div>
+    <div class="login" routerLink="../login">Login</div>
+  </div>
+</div>

@@ -10,9 +10,15 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './authentication/login/login.component';
+import { SignupComponent } from './authentication/signup/signup.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthenticationComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    AuthenticationComponent,
+    LoginComponent,
+    SignupComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
