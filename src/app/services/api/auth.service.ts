@@ -52,7 +52,7 @@ export class AuthService {
         const expirationDate = this.calculateExpirationDate(1);
         this.setListener(expirationDate);
         this.setJwtToken(user as User, expirationDate);
-        this.router.navigateByUrl('customize-links');
+        this.router.navigateByUrl('customize');
       })
       .catch((error) => {
         console.error(error);

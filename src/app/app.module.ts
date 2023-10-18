@@ -13,6 +13,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
+import { CustomizeComponent } from './customize/customize.component';
+import { NavComponent } from './customize/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { environment } from '../environments/environment';
     AuthenticationComponent,
     LoginComponent,
     SignupComponent,
+    CustomizeComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
