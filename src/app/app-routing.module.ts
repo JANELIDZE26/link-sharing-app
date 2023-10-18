@@ -5,6 +5,7 @@ import { SignupComponent } from './authentication/signup/signup.component';
 import { PreviewComponent } from './preview/preview.component';
 import { CustomizeLinksComponent } from './customize-links/customize-links.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { authGuard } from './authentication/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -17,9 +18,12 @@ const routes: Routes = [
       { path: 'signup', component: SignupComponent },
     ],
   },
-  { path: 'customize-links', component: CustomizeLinksComponent },
-  { path: 'customize-links', component: CustomizeLinksComponent },
-  { path: 'preview', component: PreviewComponent },
+  {
+    path: 'customize-links',
+    component: CustomizeLinksComponent,
+    canActivate: [authGuard],
+  },
+  { path: 'preview', component: PreviewComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

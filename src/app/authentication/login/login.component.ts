@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/api/auth.service';
 import { Account } from 'src/models/account';
 
 @Component({
@@ -11,4 +12,10 @@ export class LoginComponent {
     email: '',
     password: '',
   };
+
+  constructor(private api: AuthService) {}
+
+  public onLogin(): void {
+    this.api.signIn(this.model.email, this.model.password);
+  }
 }

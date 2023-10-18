@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/api/auth.service';
 import { Account } from 'src/models/account';
 
 @Component({
@@ -13,8 +14,9 @@ export class SignupComponent {
     confirmPassword: '',
   };
 
-  constructor() {}
+  constructor(private api: AuthService) {}
 
   public onSignUp(): void {
+    this.api.createUser(this.model.email, this.model.password);
   }
 }
