@@ -15,6 +15,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import { CustomizeComponent } from './customize/customize.component';
 import { NavComponent } from './customize/nav/nav.component';
+import { CustomizeLinksComponent } from './customize/customize-links/customize-links.component';
+import { AddLinkComponent } from './customize/add-link/add-link.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { NavComponent } from './customize/nav/nav.component';
     LoginComponent,
     SignupComponent,
     CustomizeComponent,
+    CustomizeLinksComponent,
     NavComponent,
+    AddLinkComponent,
   ],
   imports: [
     BrowserModule,

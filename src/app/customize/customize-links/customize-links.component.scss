@@ -1,0 +1,87 @@
+@import "../../../shared/styles/colors.scss";
+
+:host {
+  display: block;
+  width: 90%;
+  margin: auto;
+}
+// UPPER MOST ELEMENT
+.customize-links-container {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: $white;
+  border-radius: 2rem;
+
+  .smartphone-preview {
+    display: none;
+  }
+
+  .add-links {
+    .page-description {
+      margin-bottom: 2rem;
+    }
+
+    .new-link-button {
+      color: $purple;
+      border: 1px solid $purple;
+    }
+
+    .save-button {
+      color: $white;
+      background: $purple;
+      margin-top: 2rem;
+      margin-bottom: 0;
+    }
+
+    .lets-get-started {
+      text-align: center;
+      background: $lightGray;
+      padding: 3rem 2rem 2rem 2rem;
+      margin-bottom: 3rem;
+      border-radius: 1rem;
+    }
+
+    .links {
+      margin-bottom: 3rem;
+      height: 40rem;
+      border-radius: 2rem;
+    }
+  }
+}
+
+///// SHARED //////////////////////////////////
+.header-text {
+  font-size: 3rem;
+  font-weight: 700;
+  color: $darkGray;
+  margin-bottom: 1rem;
+}
+
+.description-text {
+  color: $gray;
+  line-height: 150%;
+  font-size: 1.5rem;
+}
+
+.button {
+  width: 100%;
+  color: $purple;
+  border: 1px solid $purple;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.new-link-button {
+  width: 100%;
+  border: 1px solid $purple;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 3rem;
+}

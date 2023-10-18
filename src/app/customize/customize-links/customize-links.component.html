@@ -1,1 +1,31 @@
-    
+<div class="customize-links-container">
+  <div class="smartphone-preview"></div>
+  <div class="add-links">
+    <div class="page-description">
+      <div class="header-text">Customize your links</div>
+      <div class="description-text">
+        Add/edit/remove links below and then share all your profiles with the
+        world!
+      </div>
+    </div>
+    <div class="new-link-button button" (click)="onLinkAdd()">
+      + Add new link
+    </div>
+    <div class="lets-get-started" *ngIf="!links.length">
+      <div class="icon">
+        <img src="../../../assets/images/illustration-empty.svg" alt="" />
+      </div>
+      <div class="header-text">Let’s get you started</div>
+      <div class="description-text">
+        Use the “Add new link” button to get started. Once you have more than
+        one link, you can reorder and edit them. We’re here to help you share
+        your profiles with everyone!
+      </div>
+    </div>
+    <div class="links" *ngIf="links.length">
+      <app-add-link *ngFor="let linkId of links"></app-add-link>
+    </div>
+    <hr />
+    <div class="save-button button">Save</div>
+  </div>
+</div>
