@@ -44,7 +44,10 @@
   }
 
   .preview {
-    padding: .8rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem 1rem;
     border: 1px solid $purple;
     border-radius: 8px;
   }
