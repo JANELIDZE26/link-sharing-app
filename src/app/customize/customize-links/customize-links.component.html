@@ -25,7 +25,7 @@
     <div class="links" *ngIf="links.length">
       <app-add-link
         *ngFor="let linkId of links; let i = index"
-        [index]="i + 1"
+        [id]="i + 1"
       ></app-add-link>
     </div>
     <hr />

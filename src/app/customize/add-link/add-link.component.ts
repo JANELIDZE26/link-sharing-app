@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./add-link.component.scss'],
 })
 export class AddLinkComponent {
-  @Input() index!: number;
+  @Input() id!: number;
   public model = {
     platform: '',
     link: '',
