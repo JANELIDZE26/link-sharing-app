@@ -1,0 +1,15 @@
+export enum Platform {
+  Github = 'Github',
+  FrontendMentor = 'FrontendMentor',
+  Twitter = 'Twitter',
+  LinkedIn = 'LinkedIn',
+  Youtube = 'Youtube',
+  Facebook = 'Facebook',
+  Twitch = 'Twitch',
+  DevTo = 'DevTo',
+  CodeWars = 'CodeWarrior',
+  FreeCodeCamp = 'FreeCodeCamp',
+  GitLab = 'GitLab',
+  HashNode = 'HashNode',
+  StackOverflow = 'StackOverflow', 
+}

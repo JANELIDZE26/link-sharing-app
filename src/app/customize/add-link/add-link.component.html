@@ -1,1 +1,19 @@
-<p>add-link works!</p>
+<div class="add-link">
+  <div class="header">
+    <div class="index">
+      <div class="lines">
+        
+      </div>
+      Link #{{ index }}
+    </div>
+    <div class="remove">Remove</div>
+  </div>
+  <div class="links">
+    <app-dropdown></app-dropdown>
+    <label for="link">Link</label>
+    <div class="input-container">
+      <img src="../../../assets/images/icon-link.svg" />
+      <input id="link" type="text" [(ngModel)]="model.link" />
+    </div>
+  </div>
+</div>

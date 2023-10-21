@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 
@@ -17,6 +17,7 @@ import { CustomizeComponent } from './customize/customize.component';
 import { NavComponent } from './customize/nav/nav.component';
 import { CustomizeLinksComponent } from './customize/customize-links/customize-links.component';
 import { AddLinkComponent } from './customize/add-link/add-link.component';
+import { DropdownComponent } from './customize/add-link/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +29,13 @@ import { AddLinkComponent } from './customize/add-link/add-link.component';
     CustomizeLinksComponent,
     NavComponent,
     AddLinkComponent,
+    DropdownComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
