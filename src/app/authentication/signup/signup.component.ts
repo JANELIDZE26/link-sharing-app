@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/api/auth.service';
-import { Account } from 'src/models/account';
+import { Account } from 'src/models/interfaces/account';
 
 @Component({
   selector: 'app-signup',

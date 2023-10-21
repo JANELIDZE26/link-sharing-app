@@ -1,12 +1,33 @@
-<div class="dropdown">
-  <div class="dropdown-icon">
-    <img src="../../../../assets/images/icon-github.svg" alt="" />
+<div class="dropdown" (click)="toggle()">
+  <div class="platform">
+    <div class="dropdown-icon">
+      <img [src]="selectedOption.iconUrl" />
+    </div>
+    {{ selectedOption.platform }}
   </div>
-  <div></div>
   <div class="arrow-icon">
     <img
       src="../../../../assets/images/icon-chevron-down.svg"
       alt="dropdown icon"
     />
   </div>
+  <ng-container
+    [ngTemplateOutlet]="optionsTemp"
+    *ngIf="isOpened"
+  ></ng-container>
 </div>
+
+<ng-template #optionsTemp>
+  <div class="options">
+    <div
+      class="option"
+      *ngFor="let option of options; let i = index"
+      (click)="onChooseOption(i)"
+    >
+      <img [src]="option.iconUrl" [alt]="option.iconUrl" />
+      <div class="name">
+        {{ option.platform }}
+      </div>
+    </div>
+  </div>
+</ng-template>

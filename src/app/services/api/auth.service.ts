@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { TimeoutService } from '../timeout.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from 'src/models/user';
+import { User } from 'src/models/interfaces/user';
 import { Router } from '@angular/router';
 
 @Injectable({

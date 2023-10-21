@@ -1,17 +1,26 @@
 <div class="add-link">
   <div class="header">
     <div class="index">
-      <div class="lines"></div>
+      <div class="lines">
+        <img src="../../../assets/images/icon-drag-and-drop.svg" alt="" />
+      </div>
       <div>Link #{{ id }}</div>
     </div>
     <div class="remove">Remove</div>
   </div>
   <div class="links">
-    <app-dropdown></app-dropdown>
+    <app-dropdown (emitSelectedOption)="onChooseOption($event)"></app-dropdown>
     <label for="link">Link</label>
     <div class="input-container">
       <img src="../../../assets/images/icon-link.svg" />
-      <input id="link" type="text" [(ngModel)]="model.link" />
+      <input
+        id="link"
+        type="text"
+        [(ngModel)]="model.link"
+        placeholder="e.g. https://www.{{
+          selectedOption?.toLowerCase() || 'github'
+        }}.com/YourProfile"
+      />
     </div>
   </div>
 </div>

@@ -7,9 +7,10 @@ export enum Platform {
   Facebook = 'Facebook',
   Twitch = 'Twitch',
   DevTo = 'DevTo',
-  CodeWars = 'CodeWarrior',
+  CodeWars = 'CodeWars',
   FreeCodeCamp = 'FreeCodeCamp',
   GitLab = 'GitLab',
   HashNode = 'HashNode',
   StackOverflow = 'StackOverflow', 
+  CodePen = 'CodePen',
 }
