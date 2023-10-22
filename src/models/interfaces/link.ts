@@ -1,6 +1,7 @@
 import { Platform } from '../enums/platform';
 
-export interface PlatformOption {
-  index: number;
+export interface Link {
+  id: string;
+  linkUrl: string;
   platform: Platform;
 }

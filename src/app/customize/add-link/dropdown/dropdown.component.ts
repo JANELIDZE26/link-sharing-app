@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LinksService } from 'src/app/services/links/links.service';
 import { Platform } from 'src/models/enums/platform';
-import { PlatformOption } from 'src/models/interfaces/platform-option';
+import { Link } from 'src/models/interfaces/link';
 
 @Component({
   selector: 'app-dropdown',
@@ -8,29 +9,43 @@ import { PlatformOption } from 'src/models/interfaces/platform-option';
   styleUrls: ['./dropdown.component.scss'],
 })
 export class DropdownComponent implements OnInit {
-  private readonly ICON_URL_PREFIX: string = `../../../assets/images/platforms/`;
-  @Output() public emitSelectedOption = new EventEmitter<PlatformOption>();
-  public selectedOption!: PlatformOption;
-  public options: PlatformOption[] = [];
+  @Input({ required: true }) link!: Link;
+  @Output() public emitSelectedOption = new EventEmitter<Platform>();
+
+  public readonly ICON_URL_PREFIX: string = `../../../assets/images/platforms`;
+  public selectedOption!: Platform;
+  public options: Platform[] = [];
   public isOpened: boolean = false;
 
+  constructor(private linksService: LinksService) {}
+
   public ngOnInit(): void {
-    this.options = Object.values(Platform).map((platform) => {
-      return {
-        iconUrl: this.ICON_URL_PREFIX + `${platform}.svg`,
-        platform,
-        isSelected: false,
-      };
-    });
-    this.selectedOption = this.options[0];
+    this.options = Object.values(Platform);
+    this.selectedOption = this.link.platform;
   }
 
-  public toggle(): void {
+  public toggle(event: Event): void {
+    event.stopPropagation();
+
     this.isOpened = !this.isOpened;
+    if (this.isOpened) {
+      this.linksService.setCurrentlyEditingLink(this.link.id);
+    } else {
+      this.linksService.unsetCurrentlyEditingLink();
+    }
   }
 
-  public onChooseOption(index: number): void {
-    this.selectedOption = this.options[index];
+  public onFocusOut(event: Event): void {
+    this.isOpened = false;
+    this.linksService.unsetCurrentlyEditingLink();
+    event.stopPropagation();
+  }
+
+  public onChooseOption(option: Platform, event: Event): void {
+    this.selectedOption = this.options.find((platform) => platform === option)!;
     this.emitSelectedOption.emit(this.selectedOption);
+    this.isOpened = false;
+    this.linksService.editPlatform(this.selectedOption);
+    event.stopPropagation();
   }
 }

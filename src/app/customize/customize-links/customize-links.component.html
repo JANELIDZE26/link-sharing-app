@@ -11,7 +11,7 @@
     <div class="new-link-button button" (click)="onLinkAdd()">
       + Add new link
     </div>
-    <div class="lets-get-started" *ngIf="!links.length">
+    <div class="lets-get-started" *ngIf="!(links$ | async)?.length; else links">
       <div class="icon">
         <img src="../../../assets/images/illustration-empty.svg" alt="" />
       </div>
@@ -22,12 +22,15 @@
         your profiles with everyone!
       </div>
     </div>
-    <div class="links" *ngIf="links.length">
-      <app-add-link
-        *ngFor="let linkId of links; let i = index"
-        [id]="i + 1"
-      ></app-add-link>
-    </div>
+    <ng-template #links>
+      <div class="links">
+        <app-add-link
+          *ngFor="let link of links$ | async; let i = index"
+          [link]="link"
+          [index]="i + 1"
+        ></app-add-link>
+      </div>
+    </ng-template>
     <hr />
     <div class="save-button button">Save</div>
   </div>

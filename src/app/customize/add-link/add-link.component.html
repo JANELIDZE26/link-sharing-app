@@ -4,22 +4,27 @@
       <div class="lines">
         <img src="../../../assets/images/icon-drag-and-drop.svg" alt="" />
       </div>
-      <div>Link #{{ id }}</div>
+      <div>Link #{{ index }}</div>
     </div>
-    <div class="remove">Remove</div>
+    <div class="remove" (click)="onRemove()">Remove</div>
   </div>
   <div class="links">
-    <app-dropdown (emitSelectedOption)="onChooseOption($event)"></app-dropdown>
+    <app-dropdown
+      [link]="link"
+      (emitSelectedOption)="onChooseOption($event)"
+    ></app-dropdown>
     <label for="link">Link</label>
     <div class="input-container">
       <img src="../../../assets/images/icon-link.svg" />
       <input
         id="link"
         type="text"
-        [(ngModel)]="model.link"
         placeholder="e.g. https://www.{{
           selectedOption?.toLowerCase() || 'github'
         }}.com/YourProfile"
+        (focus)="onFocus()"
+        (blur)="onFocusOut()"
+        (input)="onChange($event)"
       />
     </div>
   </div>

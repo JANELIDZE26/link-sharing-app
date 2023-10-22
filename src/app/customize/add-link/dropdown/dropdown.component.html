@@ -1,9 +1,14 @@
-<div class="dropdown" (click)="toggle()">
+<div
+  class="dropdown"
+  tabindex="1239812"
+  (click)="toggle($event)"
+  (blur)="onFocusOut($event)"
+>
   <div class="platform">
     <div class="dropdown-icon">
-      <img [src]="selectedOption.iconUrl" />
+      <img src="{{ ICON_URL_PREFIX }}/{{ selectedOption }}.svg" />
     </div>
-    {{ selectedOption.platform }}
+    <span>{{ selectedOption }}</span>
   </div>
   <div class="arrow-icon">
     <img
@@ -21,12 +26,16 @@
   <div class="options">
     <div
       class="option"
-      *ngFor="let option of options; let i = index"
-      (click)="onChooseOption(i)"
+      *ngFor="let option of options"
+      (click)="onChooseOption(option, $event)"
+      [class.selected]="selectedOption === option"
     >
-      <img [src]="option.iconUrl" [alt]="option.iconUrl" />
+      <img
+        src="{{ ICON_URL_PREFIX }}/{{ option }}.svg"
+        alt="{{ ICON_URL_PREFIX }}/{{ option }}"
+      />
       <div class="name">
-        {{ option.platform }}
+        {{ option }}
       </div>
     </div>
   </div>

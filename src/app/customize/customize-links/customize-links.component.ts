@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable, map } from 'rxjs';
+import { LinksService } from 'src/app/services/links/links.service';
+import { Link } from 'src/models/interfaces/link';
 
 @Component({
   selector: 'app-customize-links',
@@ -6,10 +9,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./customize-links.component.scss'],
 })
 export class CustomizeLinksComponent {
-  private linksQuantity: number = 0;
-  public links: number[] = [];
+  // TODO unsubscribe
+  public links$: Observable<Link[]> = this.linksService.links$.pipe(
+    map((links) => Array.from(links.values()))
+  );
+
+  constructor(private linksService: LinksService) {}
 
   onLinkAdd(): void {
-    this.links.push(this.linksQuantity++);
+    this.linksService.addLink();
   }
 }
