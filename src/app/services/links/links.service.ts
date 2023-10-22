@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Platform } from 'src/models/enums/platform';
+import { FirebaseUserProfile } from 'src/models/interfaces/firebaseUser';
 import { Link } from 'src/models/interfaces/link';
 import * as uuid from 'uuid';
+import { AuthService } from '../auth/auth.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,12 +16,29 @@ export class LinksService {
     return this._links$.asObservable();
   }
 
+  constructor(private auth: AuthService) {}
+
   private getLink(linkId: string): Link | undefined {
     return this.getLinks().get(linkId);
   }
 
   private getLinks(): Map<string, Link> {
     return this._links$.getValue();
+  }
+
+  public getLinksAsFirebaseObject(): FirebaseUserProfile {
+    const links: FirebaseUserProfile = {
+      userId: '',
+      links: {},
+    };
+
+    for (const [id, link] of this.getLinks().entries()) {
+      links.links[id] = link;
+    }
+
+    links.userId = this.auth.userId!;
+
+    return links;
   }
 
   public setCurrentlyEditingLink(linkId: string): void {
