@@ -18,6 +18,10 @@ export class LinksService {
 
   constructor(private auth: AuthService) {}
 
+  public setLinks(links: Map<string, Link>): void {
+    this._links$.next(links);
+  }
+
   private getLink(linkId: string): Link | undefined {
     return this.getLinks().get(linkId);
   }

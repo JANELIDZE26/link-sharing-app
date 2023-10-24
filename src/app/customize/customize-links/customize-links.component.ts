@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable, map, tap } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LinksService } from 'src/app/services/links/links.service';
 import { Link } from 'src/models/interfaces/link';
@@ -9,19 +9,46 @@ import { Link } from 'src/models/interfaces/link';
   templateUrl: './customize-links.component.html',
   styleUrls: ['./customize-links.component.scss'],
 })
-export class CustomizeLinksComponent {
+export class CustomizeLinksComponent implements OnInit {
+  private isEditMode: boolean = false;
+
   // TODO unsubscribe
+  public isSaveDisabled: boolean = true;
   public links$: Observable<Link[]> = this.linksService.links$.pipe(
-    map((links) => Array.from(links.values()))
+    map((links) => Array.from(links.values())),
+    tap((links) => {
+      if (!links.length) {
+        this.isSaveDisabled = true;
+      } else {
+        this.isSaveDisabled = false;
+      }
+    })
   );
 
   constructor(private linksService: LinksService, private api: ApiService) {}
+
+  ngOnInit(): void {
+    this.api.fetchUserData().subscribe((result) => {
+      if (result.size) {
+        this.isEditMode = true;
+      } else {
+        this.isEditMode = false;
+      }
+      this.linksService.setLinks(result);
+    });
+  }
 
   onLinkAdd(): void {
     this.linksService.addLink();
   }
 
   onSave(): void {
-    this.api.addLinks(this.linksService.getLinksAsFirebaseObject());
+    if (this.isSaveDisabled) return;
+
+    if (this.isEditMode) {
+      this.api.editLinks(this.linksService.getLinksAsFirebaseObject());
+    } else {
+      this.api.addUserData(this.linksService.getLinksAsFirebaseObject());
+    }
   }
 }

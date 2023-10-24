@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { TimeoutService } from '../timeout.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/models/interfaces/user';
@@ -28,7 +27,6 @@ export class AuthService {
   }
 
   constructor(
-    public afs: AngularFirestore,
     public auth: AngularFireAuth,
     private timeoutService: TimeoutService,
     private router: Router

@@ -32,6 +32,6 @@
       </div>
     </ng-template>
     <hr />
-    <div class="save-button button" (click)="onSave()">Save</div>
+    <div class="save-button button" [class.disabled]="isSaveDisabled" (click)="onSave()">Save</div>
   </div>
 </div>

@@ -22,6 +22,7 @@
         placeholder="e.g. https://www.{{
           selectedOption?.toLowerCase() || 'github'
         }}.com/YourProfile"
+        [value]="link.linkUrl"
         (focus)="onFocus()"
         (blur)="onFocusOut()"
         (input)="onChange($event)"
