@@ -1,1 +1,67 @@
-<p>profile-details works!</p>
+<div class="profile-details-container" [formGroup]="profileDetailsForm">
+  <div class="add-profile-details">
+    <div class="page-description">
+      <div class="header-text">Profile Details</div>
+      <div class="description-text">
+        Add your details to create a personal touch to your profile.
+      </div>
+    </div>
+    <div class="profile-picture">
+      <div class="profile-picture-header">Profile picture</div>
+      <div class="image" [ngClass]="{}">
+        <div class="upload">
+          <img
+            src="../../../assets/images/icon-upload-image.svg"
+            alt="upload profile image"
+          />
+          <div class="upload-description">+ Upload Profile Image</div>
+        </div>
+        <div class="uploaded-state"></div>
+      </div>
+      <div class="image-requirements">
+        Image must be below 1024x1024px. Use PNG or JPG format.
+      </div>
+    </div>
+    <div class="inputs">
+      <div class="input-container">
+        <label for="firstName">First name*</label>
+        <input
+          id="firstName"
+          class="input firstName"
+          [formControlName]="FormControls.firstName"
+          type="text"
+          placeholder="First name"
+        />
+      </div>
+      <div class="input-container">
+        <label for="firstName">Last name*</label>
+        <input
+          id="lastName"
+          class="input lastName"
+          [formControlName]="FormControls.lastName"
+          type="text"
+          placeholder="Last name"
+        />
+      </div>
+       <div class="input-container">
+        <label for="email">email*</label>
+        <input
+          id="email"
+          class="input email"
+          [formControlName]="FormControls.email"
+          type="text"
+          placeholder="Email"
+        />
+      </div>
+    </div>
+
+    <hr />
+    <div
+      class="save-button button"
+      [class.disabled]="isSaveDisabled"
+      (click)="onSave()"
+    >
+      Save
+    </div>
+  </div>
+</div>

@@ -1,0 +1,143 @@
+@import "../../../shared/styles/colors.scss";
+
+:host {
+  display: block;
+  width: 90%;
+  margin: auto;
+}
+// UPPER MOST ELEMENT
+.profile-details-container {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: $white;
+  border-radius: 2rem;
+
+  .add-profile-details {
+    .page-description {
+      margin-bottom: 2rem;
+    }
+
+    .profile-picture {
+      background: $lightGray;
+      border-radius: 10px;
+      padding: 2rem;
+
+      .profile-picture-header {
+        color: $gray;
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+      }
+
+      .image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2rem;
+        background: $lightPurple;
+        border-radius: 10px;
+        padding: 7rem 0;
+        width: 85%;
+      }
+
+      .image .upload {
+        color: $purple;
+
+        .upload-description {
+          font-size: 1.6rem;
+          font-weight: 600;
+          color: $purple;
+        }
+      }
+
+      .image-requirements {
+        color: $gray;
+        font-size: 1.2rem;
+      }
+    }
+
+    .inputs {
+      background: $lightGray;
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 3rem 0;
+
+
+
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.2rem;
+
+        label {
+          font-size: 1.2rem;
+          color: $darkGray;
+        }
+
+        input {
+          border: 1px solid $borderColor;
+          padding: 1.2rem 2.5rem 1.2rem 1.5rem;
+          border-radius: 0.5rem;
+          outline: none;
+          font-family: inherit;
+          font-size: 1.5rem;
+          color: $darkGray;
+          width: 100%;
+
+          &:focus {
+            border-color: $purple;
+            box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
+          }
+        }
+      }
+    }
+
+    .save-button {
+      color: $white;
+      border: 1px solid transparent;
+      background: $purple;
+      margin-top: 2rem;
+      margin-bottom: 0;
+
+      &:active,
+      &:hover {
+        background: $purpleHover;
+        transition: all 0.2s;
+      }
+
+      &.disabled {
+        background: $lightPurple;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+///// SHARED [START] //////////////////////////////////
+.header-text {
+  font-size: 3rem;
+  font-weight: 700;
+  color: $darkGray;
+  margin-bottom: 1rem;
+}
+
+.description-text {
+  color: $gray;
+  line-height: 150%;
+  font-size: 1.5rem;
+}
+
+.button {
+  width: 100%;
+  color: $purple;
+  border: 1px solid $purple;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 3rem;
+  cursor: pointer;
+}
+///// SHARED [END] //////////////////////////////////

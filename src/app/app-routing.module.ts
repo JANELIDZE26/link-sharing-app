@@ -3,7 +3,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SignupComponent } from './authentication/signup/signup.component';
-import { PreviewComponent } from './customize/preview/preview.component';
+import { PreviewComponent } from './preview/preview.component';
 import { CustomizeLinksComponent } from './customize/customize-links/customize-links.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { authGuard } from './authentication/auth.guard';
@@ -31,11 +31,11 @@ const routes: Routes = [
         component: CustomizeLinksComponent,
       },
       { path: 'profile-details', component: ProfileDetailsComponent },
-      {
-        path: 'preview',
-        component: PreviewComponent,
-      },
     ],
+  },
+  {
+    path: 'preview',
+    component: PreviewComponent,
   },
 ];
 

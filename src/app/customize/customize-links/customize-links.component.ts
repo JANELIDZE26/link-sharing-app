@@ -27,7 +27,7 @@ export class CustomizeLinksComponent implements OnInit {
 
   constructor(private linksService: LinksService, private api: ApiService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.api.fetchUserData().subscribe((result) => {
       if (result.size) {
         this.isEditMode = true;

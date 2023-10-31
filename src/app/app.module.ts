@@ -14,10 +14,12 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import { CustomizeComponent } from './customize/customize.component';
-import { NavComponent } from './customize/nav/nav.component';
+import { NavComponent } from './nav/nav.component';
 import { CustomizeLinksComponent } from './customize/customize-links/customize-links.component';
 import { AddLinkComponent } from './customize/add-link/add-link.component';
 import { DropdownComponent } from './customize/add-link/dropdown/dropdown.component';
+import { PreviewComponent } from './preview/preview.component';
+import { ProfileDetailsComponent } from './customize/profile-details/profile-details.component';
 
 @NgModule({
   declarations: [
@@ -27,9 +29,11 @@ import { DropdownComponent } from './customize/add-link/dropdown/dropdown.compon
     SignupComponent,
     CustomizeComponent,
     CustomizeLinksComponent,
+    ProfileDetailsComponent,
     NavComponent,
     AddLinkComponent,
     DropdownComponent,
+    PreviewComponent,
   ],
   imports: [
     BrowserModule,
