@@ -36,23 +36,27 @@
         margin-bottom: 2rem;
         background: $lightPurple;
         border-radius: 10px;
-        padding: 7rem 0;
         width: 85%;
-      }
+        height: 20rem;
 
-      .image .upload {
-        color: $purple;
-
-        .upload-description {
-          font-size: 1.6rem;
-          font-weight: 600;
-          color: $purple;
+        .non-uploaded-state {
+          .upload-description {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: $purple;
+          }
         }
-      }
 
-      .image-requirements {
-        color: $gray;
-        font-size: 1.2rem;
+        .uploaded-state,
+        .uploaded-state img {
+          width: 100%;
+          height: 100%;
+        }
+
+        .image-requirements {
+          color: $gray;
+          font-size: 1.2rem;
+        }
       }
     }
 
@@ -61,8 +65,6 @@
       border-radius: 10px;
       padding: 2rem;
       margin: 3rem 0;
-
-
 
       .input-container {
         display: flex;
@@ -141,3 +143,9 @@
   cursor: pointer;
 }
 ///// SHARED [END] //////////////////////////////////
+
+///// SINGLETONS [START] ////////////////////////////
+.imageUploadInput {
+  display: none;
+}
+///// SINGLETONS [START] ////////////////////////////

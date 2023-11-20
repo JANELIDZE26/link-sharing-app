@@ -5,6 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { mimeTypeValidator } from 'src/utils/mime-type-validator';
+import { ratioValidator } from 'src/utils/ratio-validator';
 
 enum FormControls {
   firstName = 'firstName',
@@ -21,6 +23,7 @@ enum FormControls {
 export class ProfileDetailsComponent implements OnInit {
   private isEditMode: boolean = false;
   public profileDetailsForm!: FormGroup;
+  public imageUrl: string | ArrayBuffer | null | undefined;
 
   // TODO unsubscribe
   public isSaveDisabled: boolean = true;
@@ -31,7 +34,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     // await fetch profile details
 
     // if profile details exist, put them in form if not create empty form group
@@ -39,10 +42,25 @@ export class ProfileDetailsComponent implements OnInit {
     this.profileDetailsForm = this.buildEmptyForm();
   }
 
-  onSave(): void {
+  public onSave(): void {
     if (this.isSaveDisabled) return;
 
     // TODO update profile details
+  }
+
+  public onImageUpload(event: Event): void {
+    const file = (event.target as HTMLInputElement).files![0];
+    const fs = new FileReader();
+    this.profileDetailsForm.patchValue({ [FormControls.profileImage]: file });
+    console.log(this.profileDetailsForm);
+    if (file) {
+      fs.onload = (event) => {
+        this.imageUrl = event.target!.result;
+      };
+      fs.readAsDataURL(file);
+    } else {
+      console.error('Please upload File');
+    }
   }
 
   private buildEmptyForm(): FormGroup {
@@ -51,12 +69,14 @@ export class ProfileDetailsComponent implements OnInit {
       [FormControls.lastName]: ['', Validators.required],
       [FormControls.email]: ['', Validators.email],
       [FormControls.profileImage]: [
-        '',
+        null,
         {
           validators: Validators.required,
-          asyncValidators: ['mimeTypeValidator'],
+          asyncValidators: [mimeTypeValidator],
         },
       ],
     });
   }
 }
+
+// , ratioValidator

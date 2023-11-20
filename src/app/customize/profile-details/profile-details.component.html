@@ -7,16 +7,26 @@
       </div>
     </div>
     <div class="profile-picture">
+      <input
+        type="file"
+        class="imageUploadInput"
+        (change)="onImageUpload($event)"
+        #imageUpload
+      />
       <div class="profile-picture-header">Profile picture</div>
-      <div class="image" [ngClass]="{}">
-        <div class="upload">
+      <div class="image" [ngClass]="{}" (click)="imageUpload.click()">
+        <div class="non-uploaded-state" *ngIf="!imageUrl; else uploadedState">
           <img
             src="../../../assets/images/icon-upload-image.svg"
             alt="upload profile image"
           />
           <div class="upload-description">+ Upload Profile Image</div>
         </div>
-        <div class="uploaded-state"></div>
+        <ng-template #uploadedState>
+          <div class="uploaded-state">
+            <img [src]="imageUrl" alt="profile image" />
+          </div>
+        </ng-template>
       </div>
       <div class="image-requirements">
         Image must be below 1024x1024px. Use PNG or JPG format.
@@ -43,7 +53,7 @@
           placeholder="Last name"
         />
       </div>
-       <div class="input-container">
+      <div class="input-container">
         <label for="email">email*</label>
         <input
           id="email"
