@@ -57,8 +57,8 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   public onSave(): void {
-    if (this.isFormValid) return;
-    console.log(this.profileDetailsForm);
+    if (!this.isFormValid) return;
+    console.log(this.profileDetailsForm.value);
     // TODO update profile details
   }
 
