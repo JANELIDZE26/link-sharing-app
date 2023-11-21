@@ -38,6 +38,35 @@
         border-radius: 10px;
         width: 85%;
         height: 20rem;
+        overflow: hidden;
+        position: relative;
+
+        & .backdrop {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          transition: all 0.4s;
+
+          .backgrop-text {
+            font-weight: 600;
+            color: $white;
+            font-size: 1.6rem;
+          }
+
+          &.hidden {
+            opacity: 0;
+          }
+
+          &.displayed {
+            opacity: 100%;
+          }
+        }
+
+        &.dragOver .uploaded-state img {
+          filter: blur(3px);
+          transform: scale(1.1);
+        }
 
         .non-uploaded-state {
           .upload-description {
@@ -56,6 +85,10 @@
         .image-requirements {
           color: $gray;
           font-size: 1.2rem;
+        }
+
+        img {
+          transition: all 0.4s;
         }
       }
     }

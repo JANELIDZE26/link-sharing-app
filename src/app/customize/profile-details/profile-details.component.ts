@@ -24,6 +24,7 @@ export class ProfileDetailsComponent implements OnInit {
   private isEditMode: boolean = false;
   public profileDetailsForm!: FormGroup;
   public imageUrl: string | ArrayBuffer | null | undefined;
+  public isDragOver: boolean = false;
 
   // TODO unsubscribe
   public isSaveDisabled: boolean = true;
@@ -50,16 +51,20 @@ export class ProfileDetailsComponent implements OnInit {
 
   public onImageUpload(event: Event): void {
     const file = (event.target as HTMLInputElement).files![0];
-    const fs = new FileReader();
+    this.patchImage(file);
+  }
+
+  public patchImage(file: File): void {
     this.profileDetailsForm.patchValue({ [FormControls.profileImage]: file });
-    console.log(this.profileDetailsForm);
+    const fs = new FileReader();
+
     if (file) {
       fs.onload = (event) => {
         this.imageUrl = event.target!.result;
       };
       fs.readAsDataURL(file);
     } else {
-      console.error('Please upload File');
+      console.error('Error Occured during image upload');
     }
   }
 

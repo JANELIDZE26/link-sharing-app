@@ -20,6 +20,7 @@ import { AddLinkComponent } from './customize/add-link/add-link.component';
 import { DropdownComponent } from './customize/add-link/dropdown/dropdown.component';
 import { PreviewComponent } from './preview/preview.component';
 import { ProfileDetailsComponent } from './customize/profile-details/profile-details.component';
+import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ProfileDetailsComponent } from './customize/profile-details/profile-det
     AddLinkComponent,
     DropdownComponent,
     PreviewComponent,
+    DragAndDropDirective,
   ],
   imports: [
     BrowserModule,
