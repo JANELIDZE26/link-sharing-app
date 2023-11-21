@@ -1,4 +1,8 @@
-<div class="profile-details-container" [formGroup]="profileDetailsForm">
+<form
+  class="profile-details-container"
+  [formGroup]="profileDetailsForm"
+  (submit)="onSave()"
+>
   <div class="add-profile-details">
     <div class="page-description">
       <div class="header-text">Profile Details</div>
@@ -51,49 +55,79 @@
         </ng-template>
       </div>
       <div class="image-requirements">
-        Image must be below 1024x1024px. Use PNG or JPG format.
+        <ul>
+          <li
+            [ngClass]="{
+              invalid: getImageValidator(IMAGE_VALIDATION.mimeTypeError),
+              valid:
+                !getImageValidator(IMAGE_VALIDATION.mimeTypeError) && imageUrl
+            }"
+          >
+            Use PNG or JPG format.
+          </li>
+          <li
+            [ngClass]="{
+              invalid: getImageValidator(IMAGE_VALIDATION.pixelsRatioError),
+              valid:
+                !getImageValidator(IMAGE_VALIDATION.pixelsRatioError) &&
+                !getImageValidator(IMAGE_VALIDATION.mimeTypeError) &&
+                imageUrl
+            }"
+          >
+            Image must be below 1024x1024px.
+          </li>
+        </ul>
       </div>
     </div>
     <div class="inputs">
       <div class="input-container">
         <label for="firstName">First name*</label>
-        <input
-          id="firstName"
-          class="input firstName"
-          [formControlName]="FormControls.firstName"
-          type="text"
-          placeholder="First name"
-        />
+        <div class="input">
+          <input
+            id="firstName"
+            class="firstName"
+            [formControlName]="FormControls.firstName"
+            type="text"
+            placeholder="First name"
+          />
+          <div class="validation-message" *ngIf="false">Can't be empty</div>
+        </div>
       </div>
       <div class="input-container">
         <label for="firstName">Last name*</label>
-        <input
-          id="lastName"
-          class="input lastName"
-          [formControlName]="FormControls.lastName"
-          type="text"
-          placeholder="Last name"
-        />
+        <div class="input">
+          <input
+            id="lastName"
+            class="lastName"
+            [formControlName]="FormControls.lastName"
+            type="text"
+            placeholder="Last name"
+          />
+          <div class="validation-message" *ngIf="false">Can't be empty</div>
+        </div>
       </div>
       <div class="input-container">
         <label for="email">email*</label>
-        <input
-          id="email"
-          class="input email"
-          [formControlName]="FormControls.email"
-          type="text"
-          placeholder="Email"
-        />
+        <div class="input">
+          <input
+            id="email"
+            class="email"
+            [formControlName]="FormControls.email"
+            type="text"
+            placeholder="Email"
+          />
+          <div class="validation-message" *ngIf="false">Can't be empty</div>
+        </div>
       </div>
     </div>
 
     <hr />
-    <div
+    <button
+      type="submit"
       class="save-button button"
-      [class.disabled]="isSaveDisabled"
-      (click)="onSave()"
+      [class.disabled]="!isFormValid"
     >
       Save
-    </div>
+    </button>
   </div>
-</div>
+</form>

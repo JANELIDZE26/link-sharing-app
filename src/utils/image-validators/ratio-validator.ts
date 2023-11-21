@@ -1,5 +1,6 @@
 import { AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { ImageValidation } from 'src/models/enums/image-validation';
 
 export const ratioValidator = (
   formControl: AbstractControl
@@ -14,7 +15,7 @@ export const ratioValidator = (
 
       if (width !== 1024 && height !== 1024) {
         subscriber.next({
-          validationError: 'Image must have 1024x1024 pixel ratio',
+          [ImageValidation.pixelsRatioError]: ImageValidation.pixelsRatioError,
         });
       } else {
         subscriber.next(null);

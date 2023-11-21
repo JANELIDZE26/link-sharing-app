@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { mimeTypeValidator } from 'src/utils/mime-type-validator';
-import { ratioValidator } from 'src/utils/ratio-validator';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ImageValidation } from 'src/models/enums/image-validation';
+import { imageValidators } from 'src/utils/image-validators/combined-validators';
+import { mimeTypeValidator } from 'src/utils/image-validators/mime-type-validator';
+import { ratioValidator } from 'src/utils/image-validators/ratio-validator';
 
 enum FormControls {
   firstName = 'firstName',
@@ -33,7 +30,23 @@ export class ProfileDetailsComponent implements OnInit {
     return FormControls;
   }
 
+  get IMAGE_VALIDATION() {
+    return ImageValidation;
+  }
+
+  get isFormValid(): boolean {
+    return this.profileDetailsForm.valid;
+  }
+
   constructor(private formBuilder: FormBuilder) {}
+
+  public getImageValidator(validatorType: ImageValidation): number | null {
+    const result =
+      this.profileDetailsForm.controls[FormControls.profileImage].errors?.[
+        validatorType
+      ];
+    return result;
+  }
 
   public ngOnInit(): void {
     // await fetch profile details
@@ -44,8 +57,8 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   public onSave(): void {
-    if (this.isSaveDisabled) return;
-
+    if (this.isFormValid) return;
+    console.log(this.profileDetailsForm);
     // TODO update profile details
   }
 
@@ -56,6 +69,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   public patchImage(file: File): void {
     this.profileDetailsForm.patchValue({ [FormControls.profileImage]: file });
+
     const fs = new FileReader();
 
     if (file) {
@@ -72,16 +86,17 @@ export class ProfileDetailsComponent implements OnInit {
     return this.formBuilder.group({
       [FormControls.firstName]: ['', Validators.required],
       [FormControls.lastName]: ['', Validators.required],
-      [FormControls.email]: ['', Validators.email],
+      [FormControls.email]: [
+        '',
+        { validators: [Validators.email, Validators.required] },
+      ],
       [FormControls.profileImage]: [
         null,
         {
           validators: Validators.required,
-          asyncValidators: [mimeTypeValidator],
+          asyncValidators: [imageValidators],
         },
       ],
     });
   }
 }
-
-// , ratioValidator

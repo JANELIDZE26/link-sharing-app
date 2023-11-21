@@ -82,13 +82,18 @@
           height: 100%;
         }
 
-        .image-requirements {
-          color: $gray;
-          font-size: 1.2rem;
-        }
-
         img {
           transition: all 0.4s;
+        }
+      }
+
+      .image-requirements {
+        color: $gray;
+        font-size: 1.2rem;
+        padding-left: 2rem;
+
+        li {
+          margin-bottom: 0.5rem;
         }
       }
     }
@@ -110,17 +115,32 @@
           color: $darkGray;
         }
 
-        input {
+        .input {
           border: 1px solid $borderColor;
-          padding: 1.2rem 2.5rem 1.2rem 1.5rem;
           border-radius: 0.5rem;
-          outline: none;
           font-family: inherit;
           font-size: 1.5rem;
           color: $darkGray;
           width: 100%;
+          display: flex;
+          align-items: center;
+          padding: 1.2rem 2.5rem 1.2rem 1.5rem;
 
-          &:focus {
+          input {
+            border: none;
+            outline: none;
+            width: 60%;
+          }
+
+          .validation-message {
+            color: $red;
+            font-size: 1.2rem;
+            font-weight: 400;
+            width: 60%;
+            text-align: center;
+          }
+
+          &:focus-within {
             border-color: $purple;
             box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
           }
@@ -135,7 +155,6 @@
       margin-top: 2rem;
       margin-bottom: 0;
 
-      &:active,
       &:hover {
         background: $purpleHover;
         transition: all 0.2s;
@@ -180,5 +199,13 @@
 ///// SINGLETONS [START] ////////////////////////////
 .imageUploadInput {
   display: none;
+}
+
+.invalid {
+  color: red;
+}
+
+.valid {
+  color: green;
 }
 ///// SINGLETONS [START] ////////////////////////////

@@ -1,5 +1,6 @@
 import { AbstractControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
+import { ImageValidation } from 'src/models/enums/image-validation';
 
 export const mimeTypeValidator = (
   formControl: AbstractControl
@@ -19,7 +20,7 @@ export const mimeTypeValidator = (
         subscriber.next(null);
       } else {
         subscriber.next({
-          validationError: 'Incorrect File Type (Only jpg, jpeg, png Allowed)',
+          [ImageValidation.mimeTypeError]: ImageValidation.mimeTypeError,
         });
       }
 
