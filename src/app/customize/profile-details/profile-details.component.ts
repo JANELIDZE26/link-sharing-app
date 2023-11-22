@@ -1,9 +1,9 @@
+import { ApiService } from 'src/app/services/api/api.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageValidation } from 'src/models/enums/image-validation';
 import { imageValidators } from 'src/utils/image-validators/combined-validators';
-import { mimeTypeValidator } from 'src/utils/image-validators/mime-type-validator';
-import { ratioValidator } from 'src/utils/image-validators/ratio-validator';
+import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 
 enum FormControls {
   firstName = 'firstName',
@@ -18,13 +18,11 @@ enum FormControls {
   styleUrls: ['./profile-details.component.scss'],
 })
 export class ProfileDetailsComponent implements OnInit {
-  private isEditMode: boolean = false;
   public profileDetailsForm!: FormGroup;
   public imageUrl: string | ArrayBuffer | null | undefined;
   public isDragOver: boolean = false;
-
-  // TODO unsubscribe
   public isSaveDisabled: boolean = true;
+  public isEditMode: boolean = false;
 
   get FormControls() {
     return FormControls;
@@ -38,7 +36,10 @@ export class ProfileDetailsComponent implements OnInit {
     return this.profileDetailsForm.valid;
   }
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private apiService: ApiService
+  ) {}
 
   public getImageValidator(validatorType: ImageValidation): number | null {
     const result =
@@ -48,8 +49,16 @@ export class ProfileDetailsComponent implements OnInit {
     return result;
   }
 
-  public ngOnInit(): void {
+  public ngOnInit() {
     // await fetch profile details
+    this.apiService.getProfileDetails().subscribe(([image, userProfile]) => {
+      this.imageUrl = image;
+      this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
+
+      if (userProfile) {
+        this.isEditMode = true;
+      }
+    });
 
     // if profile details exist, put them in form if not create empty form group
 
@@ -58,8 +67,11 @@ export class ProfileDetailsComponent implements OnInit {
 
   public onSave(): void {
     if (!this.isFormValid) return;
-    console.log(this.profileDetailsForm.value);
-    // TODO update profile details
+    if (this.isEditMode) {
+      this.apiService.editProfileDetails(this.profileDetailsForm.value);
+    } else {
+      this.apiService.saveProfileDetails(this.profileDetailsForm.value);
+    }
   }
 
   public onImageUpload(event: Event): void {
@@ -68,9 +80,10 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   public patchImage(file: File): void {
-    this.profileDetailsForm.patchValue({ [FormControls.profileImage]: file });
-
     const fs = new FileReader();
+    this.profileDetailsForm.patchValue({
+      [FormControls.profileImage]: file,
+    });
 
     if (file) {
       fs.onload = (event) => {
@@ -93,7 +106,6 @@ export class ProfileDetailsComponent implements OnInit {
       [FormControls.profileImage]: [
         null,
         {
-          validators: Validators.required,
           asyncValidators: [imageValidators],
         },
       ],
