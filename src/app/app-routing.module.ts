@@ -35,6 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'preview',
+    canActivate: [authGuard],
     component: PreviewComponent,
   },
 ];

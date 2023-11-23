@@ -1,4 +1,5 @@
 @import "../../shared/styles/colors.scss";
+@import "../../shared/styles/platformColors.scss";
 
 .preview-header {
   padding: 1rem;
@@ -29,10 +30,12 @@
   }
 }
 
-.details .profile {
+.details {
   width: 30.5rem;
   margin: auto;
+}
 
+.details .profile {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,4 +66,93 @@
     font-weight: 400;
     color: $gray;
   }
+}
+
+.details .links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  overflow-y: auto;
+  height: 45rem;
+  margin: auto;
+
+  .link {
+    display: flex;
+    align-items: center;
+    padding: 1.6rem;
+    text-align: left;
+    border-radius: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    .platform-name {
+      font-size: 1.6rem;
+      color: $white;
+      margin-left: 0.8rem;
+    }
+
+    .arrow-icon {
+      margin-left: auto;
+    }
+  }
+}
+
+// PLATFORM BACKGROUND COLROS
+
+.Facebook {
+  background: $facebook;
+}
+
+.FrontendMentor {
+  background: $frontendMentor;
+  border: 1px solid $borderColor !important;
+
+  .platform-name {
+    color: $darkGray !important;
+  }
+}
+
+.Twitter {
+  background: $twitter;
+}
+
+.LinkedIn {
+  background: $linkedIn;
+}
+
+.Youtube {
+  background: $youtube;
+}
+
+.Facebook {
+  background: $facebook;
+}
+
+.Twitch {
+  background: $twitch;
+}
+
+.DevTo {
+  background: $devTo;
+}
+
+.CodeWars {
+  background: $codeWars;
+}
+
+.FreeCodeCamp {
+  background: $freeCodeCamp;
+}
+
+.GitLab {
+  background: $gitlab;
+}
+
+.HashNode {
+  background: $hashNode;
+}
+
+.StackOverflow {
+  background: $stackOverflow;
 }

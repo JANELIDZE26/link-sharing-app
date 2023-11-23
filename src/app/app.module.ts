@@ -21,6 +21,9 @@ import { DropdownComponent } from './customize/add-link/dropdown/dropdown.compon
 import { PreviewComponent } from './preview/preview.component';
 import { ProfileDetailsComponent } from './customize/profile-details/profile-details.component';
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SafeHtmlPipePipe } from './pipes/safe-html-pipe.pipe';
+import { SvgComponentComponent } from './svg-component/svg-component.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,8 @@ import { DragAndDropDirective } from './directives/drag-and-drop.directive';
     DropdownComponent,
     PreviewComponent,
     DragAndDropDirective,
+    SafeHtmlPipePipe,
+    SvgComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +52,7 @@ import { DragAndDropDirective } from './directives/drag-and-drop.directive';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
