@@ -1,1 +1,18 @@
-sd
+<div class="preview-header">
+  <div class="panel">
+    <div class="back-to-editor">Back to Editor</div>
+    <div class="share-link">Share Link</div>
+  </div>
+</div>
+<div class="details">
+  <div class="profile">
+    <div class="image">
+      <img [src]="profileImage" alt="profile image" />
+    </div>
+    <div class="firstName">
+      {{ profileDetails?.firstName }} {{ profileDetails?.lastName }}
+    </div>
+    <div class="email">{{ profileDetails?.email }}</div>
+  </div>
+  <div class="links"></div>
+</div>

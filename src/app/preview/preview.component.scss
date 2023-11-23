@@ -1,0 +1,30 @@
+@import "../../shared/styles/colors.scss";
+
+.preview-header {
+  padding: 1rem;
+
+  .panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    div {
+      border-radius: 8px;
+      border: 1px solid $purple;
+      background-color: $purple;
+      color: $white;
+      width: 45%;
+      padding: 1.1rem 2.7rem;
+      text-align: center;
+      font-weight: 600;
+      font-family: Instrument Sans;
+      font-size: 1.6rem;
+    }
+
+    .back-to-editor {
+      background-color: $white;
+      color: $purple;
+    }
+  }
+}

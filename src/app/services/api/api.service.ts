@@ -12,6 +12,8 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   providedIn: 'root',
 })
 export class ApiService {
+  // TODO implement spinners for api events.
+
   constructor(
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
@@ -56,8 +58,6 @@ export class ApiService {
   }
 
   public saveProfileDetails(profileDetails: ProfileDetails): void {
-    // upload profile image
-    const ref = this.storage.ref(this.auth.userId!);
     const { profileImage, ...profileDetailsForm } = profileDetails;
 
     if (profileImage) {
@@ -69,9 +69,7 @@ export class ApiService {
     collection
       .add({ ...profileDetailsForm, userId: this.auth.userId })
       .then(() => {
-        console.log('[FROM SAVE]');
-
-        // this.router.navigateByUrl('preview');
+        this.router.navigateByUrl('preview');
       })
       .catch((error) => console.error(error));
   }
@@ -87,8 +85,6 @@ export class ApiService {
     );
     collection.get().forEach((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        // Update the document with the new data
-        console.log('[FROM EDIT]');
         collection.doc(doc.id).update(profileDetailsForm);
       });
     });
@@ -103,14 +99,12 @@ export class ApiService {
         ref.where('userId', '==', this.auth.userId)
       )
       .get()
-      .pipe(
-        map((result) => {
-          const data = result.docs.map((doc) => doc.data())[0];
-
-          return data;
-        })
-      );
+      .pipe(map((result) => result.docs.map((doc) => doc.data())[0]));
     return combineLatest([image, collection]);
+  }
+
+  public getPreviewDetails(): Observable<any> {
+    return combineLatest([this.getProfileDetails(), this.fetchUserData()]);
   }
 
   private uploadImage(image: File) {
@@ -125,6 +119,4 @@ export class ApiService {
         console.error(error);
       });
   }
-
-  // TODO implement Save, Get, Edit for profile details
 }
