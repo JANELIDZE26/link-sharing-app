@@ -14,8 +14,6 @@ export class PreviewComponent implements OnInit {
   public links: Link[] | undefined;
   public readonly PLATFORM = Platform;
 
-
- 
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
@@ -30,4 +28,13 @@ export class PreviewComponent implements OnInit {
       });
   }
 
+  onOpenLink(link: string): void {
+    const prefix = 'http://www';
+
+    if (!link.startsWith(prefix)) {
+      window.open(`${prefix}.${link}`, '_blank');
+    } else {
+      window.open(link, '_blank');
+    }
+  }
 }

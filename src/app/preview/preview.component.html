@@ -1,6 +1,8 @@
 <div class="preview-header">
   <div class="panel">
-    <div class="back-to-editor" routerLink="/customize/customize-links">Back to Editor</div>
+    <div class="back-to-editor" routerLink="/customize/customize-links">
+      Back to Editor
+    </div>
     <div class="share-link">Share Link</div>
   </div>
 </div>
@@ -15,10 +17,19 @@
     <div class="email">{{ profileDetails?.email }}</div>
   </div>
   <div class="links">
-    <div class="link {{ link.platform }}" *ngFor="let link of links">
+    <div
+      class="link {{ link.platform }}"
+      *ngFor="let link of links"
+      (click)="onOpenLink(link.linkUrl)"
+    >
       <div class="platform-icon">
         <app-svg-component
-          [color]="link.platform === PLATFORM.FrontendMentor || link.platform === PLATFORM.DevTo ? '' : 'white'"
+          [color]="
+            link.platform === PLATFORM.FrontendMentor ||
+            link.platform === PLATFORM.DevTo
+              ? ''
+              : 'white'
+          "
           iconPath="../../assets/images/platforms/{{ link.platform }}.svg"
           [dimensions]="{ width: '2rem', height: '2rem' }"
         >
