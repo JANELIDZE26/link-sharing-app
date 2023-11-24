@@ -1,5 +1,9 @@
 @import "../../shared/styles/colors.scss";
 
+* {
+  transition: all 0.7s;
+}
+
 .nav {
   display: flex;
   justify-content: space-between;

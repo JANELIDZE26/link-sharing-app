@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { FirebaseUserProfile } from 'src/models/interfaces/firebaseUser';
 import { AuthService } from '../auth/auth.service';
-import { Observable, combineLatest, map, merge } from 'rxjs';
+import { Observable, catchError, combineLatest, map, merge, of, tap } from 'rxjs';
 import { Link } from 'src/models/interfaces/link';
 import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -57,6 +57,7 @@ export class ApiService {
           const userData: FirebaseUserProfile = result.docs.map((doc) =>
             doc.data()
           )[0] as FirebaseUserProfile;
+          if(!userData) return new Map();
           return new Map<string, Link>(Object.entries(userData.links));
         })
       );
@@ -102,7 +103,7 @@ export class ApiService {
 
   public getProfileDetails() {
     const storageRef = this.storage.ref(this.auth.userId!);
-    const image = storageRef.getDownloadURL();
+    const image = storageRef.getDownloadURL().pipe(catchError(() => of(null)));
 
     const collection = this.firestore
       .collection('profile-details', (ref) =>

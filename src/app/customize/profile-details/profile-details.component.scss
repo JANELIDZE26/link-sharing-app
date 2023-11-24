@@ -1,5 +1,9 @@
 @import "../../../shared/styles/colors.scss";
 
+* {
+  transition: all 0.7s;
+}
+
 :host {
   display: block;
   width: 90%;
@@ -38,10 +42,11 @@
         margin-bottom: 2rem;
         background: $lightPurple;
         border-radius: 10px;
-        width: 85%;
+        width: 22rem;
         height: 20rem;
         overflow: hidden;
         position: relative;
+        margin-right: 1.5rem;
 
         & .backdrop {
           position: absolute;
@@ -57,8 +62,9 @@
             font-size: 1.6rem;
           }
         }
-
+        &:hover,
         &.dragOver {
+          cursor: pointer;
           .uploaded-state img {
             filter: blur(3px);
             transform: scale(1.1);
@@ -107,6 +113,19 @@
           margin-bottom: 0.5rem;
         }
       }
+
+      @media (min-width: 600px) {
+        display: flex;
+        align-items: center;
+
+        .profile-picture-header {
+          margin-right: auto;
+        }
+
+        .image-requirements {
+          width: 9rem;
+        }
+      }
     }
 
     .inputs {
@@ -131,10 +150,6 @@
         .input {
           border: 1px solid $borderColor;
           border-radius: 0.5rem;
-          font-family: inherit;
-          font-size: 1.5rem;
-          color: $darkGray;
-          width: 100%;
           display: flex;
           align-items: center;
           padding: 1.2rem 2.5rem 1.2rem 1.5rem;
@@ -142,6 +157,10 @@
           input {
             border: none;
             outline: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 1.5rem;
+            color: $darkGray;
             width: 100%;
           }
 
