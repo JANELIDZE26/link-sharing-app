@@ -39,7 +39,19 @@ export class PreviewComponent implements OnInit {
     }
   }
 
-  onCopyToClipboard(element: any): void {
+  onCopyToClipboard(element: any) {
+    const url = window.location.href; // Gets the full URL
+    navigator.clipboard.writeText(url).then(
+      () => {
+        this.showToastr(element);
+      },
+      (err) => {
+        console.error('Failed to copy URL: ', err);
+      }
+    );
+  }
+
+  showToastr(element: any): void {
     this.hotToast.show(element, {
       position: 'bottom-center',
       className: 'toastrClass',
