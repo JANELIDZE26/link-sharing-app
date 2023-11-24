@@ -104,6 +104,10 @@
   background: $facebook;
 }
 
+.Github {
+  background: $github;
+}
+
 .FrontendMentor {
   background: $frontendMentor;
   border: 1px solid $borderColor !important;
@@ -156,3 +160,14 @@
 .StackOverflow {
   background: $stackOverflow;
 }
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+}
+.toastrIcon {
+  width: 100%;
+  height: 100%;
+}
+
+

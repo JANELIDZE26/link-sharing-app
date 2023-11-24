@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
@@ -21,9 +22,10 @@ import { DropdownComponent } from './customize/add-link/dropdown/dropdown.compon
 import { PreviewComponent } from './preview/preview.component';
 import { ProfileDetailsComponent } from './customize/profile-details/profile-details.component';
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { SafeHtmlPipePipe } from './pipes/safe-html-pipe.pipe';
 import { SvgComponentComponent } from './svg-component/svg-component.component';
+import { provideHotToastConfig } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { SvgComponentComponent } from './svg-component/svg-component.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
@@ -54,7 +57,7 @@ import { SvgComponentComponent } from './svg-component/svg-component.component';
     AngularFireDatabaseModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [provideHotToastConfig({})],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

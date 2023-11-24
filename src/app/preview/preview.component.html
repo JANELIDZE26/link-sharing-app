@@ -3,7 +3,9 @@
     <div class="back-to-editor" routerLink="/customize/customize-links">
       Back to Editor
     </div>
-    <div class="share-link">Share Link</div>
+    <div class="share-link" (click)="onCopyToClipboard(toastrTemplate)">
+      Share Link
+    </div>
   </div>
 </div>
 <div class="details">
@@ -45,3 +47,14 @@
     </div>
   </div>
 </div>
+<ng-template #toastrTemplate>
+  <div class="hotToastContainer">
+    <app-svg-component
+      [color]="'white'"
+      iconPath="../../assets/images/icon-link.svg"
+      [dimensions]="{ width: '2rem', height: '2rem' }"
+    >
+    </app-svg-component>
+    <div class="hotToastMessage">The link has been copied to your clipboard!</div>
+  </div>
+</ng-template>

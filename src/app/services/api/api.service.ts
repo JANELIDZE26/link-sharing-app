@@ -35,12 +35,17 @@ export class ApiService {
     const collection = this.firestore.collection('links', (ref) =>
       ref.where('userId', '==', this.auth.userId)
     );
-    collection.get().forEach((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        // Update the document with the new data
-        collection.doc(doc.id).update(userData);
+    collection
+      .get()
+      .forEach((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // Update the document with the new data
+          collection.doc(doc.id).update(userData);
+        });
+      })
+      .then(() => {
+        this.router.navigateByUrl('customize/profile-details');
       });
-    });
   }
 
   public fetchUserData(): Observable<Map<string, Link>> {
@@ -83,11 +88,16 @@ export class ApiService {
     const collection = this.firestore.collection('profile-details', (ref) =>
       ref.where('userId', '==', this.auth.userId)
     );
-    collection.get().forEach((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        collection.doc(doc.id).update(profileDetailsForm);
+    collection
+      .get()
+      .forEach((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          collection.doc(doc.id).update(profileDetailsForm);
+        });
+      })
+      .then(() => {
+        this.router.navigateByUrl('preview');
       });
-    });
   }
 
   public getProfileDetails() {

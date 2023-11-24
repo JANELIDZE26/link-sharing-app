@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ApiService } from '../services/api/api.service';
 import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 import { Link } from 'src/models/interfaces/link';
 import { Platform } from 'src/models/enums/platform';
+import { HotToastService } from '@ngneat/hot-toast';
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
@@ -14,7 +15,7 @@ export class PreviewComponent implements OnInit {
   public links: Link[] | undefined;
   public readonly PLATFORM = Platform;
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private hotToast: HotToastService) {}
 
   ngOnInit(): void {
     this.api
@@ -36,5 +37,12 @@ export class PreviewComponent implements OnInit {
     } else {
       window.open(link, '_blank');
     }
+  }
+
+  onCopyToClipboard(element: any): void {
+    this.hotToast.show(element, {
+      position: 'bottom-center',
+      className: 'toastrClass',
+    });
   }
 }
