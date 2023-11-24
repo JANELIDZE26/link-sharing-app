@@ -21,6 +21,8 @@
       background: $lightGray;
       border-radius: 10px;
       padding: 2rem;
+      height: 34rem;
+      position: relative;
 
       .profile-picture-header {
         color: $gray;
@@ -112,6 +114,8 @@
       border-radius: 10px;
       padding: 2rem;
       margin: 3rem 0;
+      height: 25rem;
+      position: relative;
 
       .input-container {
         display: flex;
@@ -216,5 +220,13 @@
 
 .valid {
   color: green;
+}
+
+.spinner {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 ///// SINGLETONS [START] ////////////////////////////

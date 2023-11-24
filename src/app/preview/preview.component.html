@@ -8,45 +8,52 @@
     </div>
   </div>
 </div>
-<div class="details">
-  <div class="profile">
-    <div class="image">
-      <img [src]="profileImage" alt="profile image" />
-    </div>
-    <div class="firstName">
-      {{ profileDetails?.firstName }} {{ profileDetails?.lastName }}
-    </div>
-    <div class="email">{{ profileDetails?.email }}</div>
-  </div>
-  <div class="links">
-    <div
-      class="link {{ link.platform }}"
-      *ngFor="let link of links"
-      (click)="onOpenLink(link.linkUrl)"
-    >
-      <div class="platform-icon">
-        <app-svg-component
-          [color]="
-            link.platform === PLATFORM.FrontendMentor ||
-            link.platform === PLATFORM.DevTo
-              ? ''
-              : 'white'
-          "
-          iconPath="../../assets/images/platforms/{{ link.platform }}.svg"
-          [dimensions]="{ width: '2rem', height: '2rem' }"
-        >
-        </app-svg-component>
-      </div>
-      <div class="platform-name">{{ link.platform }}</div>
-      <div class="arrow-icon">
-        <img
-          src="../../assets/images/icon-arrow-right.svg"
-          alt="right arrow icon"
-        />
-      </div>
-    </div>
-  </div>
+
+<div class="spinner" *ngIf="showSpinner; else details">
+  <app-spinner [spinnerType]="'circle'"></app-spinner>
 </div>
+<ng-template #details>
+  <div class="details">
+    <div class="profile">
+      <div class="image">
+        <img [src]="profileImage" alt="profile image" />
+      </div>
+      <div class="firstName">
+        {{ profileDetails?.firstName }} {{ profileDetails?.lastName }}
+      </div>
+      <div class="email">{{ profileDetails?.email }}</div>
+    </div>
+    <div class="links">
+      <div
+        class="link {{ link.platform }}"
+        *ngFor="let link of links"
+        (click)="onOpenLink(link.linkUrl)"
+      >
+        <div class="platform-icon">
+          <app-svg-component
+            [color]="
+              link.platform === PLATFORM.FrontendMentor ||
+              link.platform === PLATFORM.DevTo
+                ? ''
+                : 'white'
+            "
+            iconPath="../../assets/images/platforms/{{ link.platform }}.svg"
+            [dimensions]="{ width: '2rem', height: '2rem' }"
+          >
+          </app-svg-component>
+        </div>
+        <div class="platform-name">{{ link.platform }}</div>
+        <div class="arrow-icon">
+          <img
+            src="../../assets/images/icon-arrow-right.svg"
+            alt="right arrow icon"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
 <ng-template #toastrTemplate>
   <div class="hotToastContainer">
     <app-svg-component
@@ -55,6 +62,8 @@
       [dimensions]="{ width: '2rem', height: '2rem' }"
     >
     </app-svg-component>
-    <div class="hotToastMessage">The link has been copied to your clipboard!</div>
+    <div class="hotToastMessage">
+      The link has been copied to your clipboard!
+    </div>
   </div>
 </ng-template>

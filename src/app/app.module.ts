@@ -24,8 +24,9 @@ import { ProfileDetailsComponent } from './customize/profile-details/profile-det
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { SafeHtmlPipePipe } from './pipes/safe-html-pipe.pipe';
-import { SvgComponentComponent } from './svg-component/svg-component.component';
+import { SvgComponentComponent } from '../shared/components/svg-component/svg-component.component';
 import { provideHotToastConfig } from '@ngneat/hot-toast';
+import { SpinnerComponent } from 'src/shared/components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { provideHotToastConfig } from '@ngneat/hot-toast';
     DragAndDropDirective,
     SafeHtmlPipePipe,
     SvgComponentComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

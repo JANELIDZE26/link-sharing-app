@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api/api.service';
 import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 import { Link } from 'src/models/interfaces/link';
@@ -13,20 +13,26 @@ export class PreviewComponent implements OnInit {
   public profileImage: string | undefined;
   public profileDetails: ProfileDetails | undefined;
   public links: Link[] | undefined;
+  public showSpinner: boolean = false;
   public readonly PLATFORM = Platform;
 
   constructor(private api: ApiService, private hotToast: HotToastService) {}
 
   ngOnInit(): void {
-    this.api
-      .getPreviewDetails()
-      .subscribe(([[image, profileDetails], links]) => {
+    this.showSpinner = true;
+    this.api.getPreviewDetails().subscribe(
+      ([[image, profileDetails], links]) => {
         this.profileImage = image;
         this.profileDetails = profileDetails;
         this.links = Array.from(links as Map<string, Link>).map(
           ([_, link]) => link
         );
-      });
+      },
+      null,
+      () => {
+        this.showSpinner = false;
+      }
+    );
   }
 
   onOpenLink(link: string): void {

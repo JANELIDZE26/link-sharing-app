@@ -11,27 +11,37 @@
     <div class="new-link-button button" (click)="onLinkAdd()">
       + Add new link
     </div>
-    <div class="lets-get-started" *ngIf="!(links$ | async)?.length; else links">
-      <div class="icon">
-        <img src="../../../assets/images/illustration-empty.svg" alt="" />
-      </div>
-      <div class="header-text">Let’s get you started</div>
-      <div class="description-text">
-        Use the “Add new link” button to get started. Once you have more than
-        one link, you can reorder and edit them. We’re here to help you share
-        your profiles with everyone!
-      </div>
+    <div class="spinner" *ngIf="showSpinner; else linksSection">
+      <app-spinner [spinnerType]="'circle'"></app-spinner>
     </div>
-    <ng-template #links>
-      <div class="links">
-        <app-add-link
-          *ngFor="let link of links$ | async; let i = index"
-          [link]="link"
-          [index]="i + 1"
-        ></app-add-link>
+
+    <ng-template #linksSection>
+      <div
+        class="lets-get-started"
+        *ngIf="!(links$ | async)?.length; else links"
+      >
+        <div class="icon">
+          <img src="../../../assets/images/illustration-empty.svg" alt="" />
+        </div>
+        <div class="header-text">Let’s get you started</div>
+        <div class="description-text">
+          Use the “Add new link” button to get started. Once you have more than
+          one link, you can reorder and edit them. We’re here to help you share
+          your profiles with everyone!
+        </div>
       </div>
+      <ng-template #links>
+        <div class="links">
+          <app-add-link
+            *ngFor="let link of links$ | async; let i = index"
+            [link]="link"
+            [index]="i + 1"
+          ></app-add-link>
+        </div>
+      </ng-template>
+      <hr />
     </ng-template>
-    <hr />
+
     <div
       class="save-button button"
       [class.disabled]="isSaveDisabled"

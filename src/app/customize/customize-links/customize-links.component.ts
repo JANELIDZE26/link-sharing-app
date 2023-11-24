@@ -11,6 +11,7 @@ import { Link } from 'src/models/interfaces/link';
 })
 export class CustomizeLinksComponent implements OnInit {
   private isEditMode: boolean = false;
+  public showSpinner: boolean = false;
 
   // TODO unsubscribe
   public isSaveDisabled: boolean = true;
@@ -28,14 +29,21 @@ export class CustomizeLinksComponent implements OnInit {
   constructor(private linksService: LinksService, private api: ApiService) {}
 
   ngOnInit() {
-    this.api.fetchUserData().subscribe((result) => {
-      if (result.size) {
-        this.isEditMode = true;
-      } else {
-        this.isEditMode = false;
+    this.showSpinner = true;
+    this.api.fetchUserData().subscribe(
+      (result) => {
+        if (result.size) {
+          this.isEditMode = true;
+        } else {
+          this.isEditMode = false;
+        }
+        this.linksService.setLinks(result);
+      },
+      null,
+      () => {
+        this.showSpinner = false;
       }
-      this.linksService.setLinks(result);
-    });
+    );
   }
 
   onLinkAdd(): void {

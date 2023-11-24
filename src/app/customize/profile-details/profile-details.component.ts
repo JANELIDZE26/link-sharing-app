@@ -23,6 +23,7 @@ export class ProfileDetailsComponent implements OnInit {
   public isDragOver: boolean = false;
   public isSaveDisabled: boolean = true;
   public isEditMode: boolean = false;
+  public showSpinner: boolean = false;
 
   get FormControls() {
     return FormControls;
@@ -50,15 +51,22 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   public ngOnInit() {
+    this.showSpinner = true;
     // await fetch profile details
-    this.apiService.getProfileDetails().subscribe(([image, userProfile]) => {
-      this.imageUrl = image;
-      this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
+    this.apiService.getProfileDetails().subscribe(
+      ([image, userProfile]) => {
+        this.imageUrl = image;
+        this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
 
-      if (userProfile) {
-        this.isEditMode = true;
+        if (userProfile) {
+          this.isEditMode = true;
+        }
+      },
+      null,
+      () => {
+        this.showSpinner = false;
       }
-    });
+    );
 
     // if profile details exist, put them in form if not create empty form group
 
