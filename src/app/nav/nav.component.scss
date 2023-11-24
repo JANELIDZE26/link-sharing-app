@@ -12,6 +12,26 @@
     width: 4rem;
     height: 4rem;
 
+    .small {
+      display: unset;
+    }
+
+    .large {
+      display: none;
+    }
+
+    @media (min-width: 599px) {
+      width: 10rem;
+
+      .small {
+        display: none;
+      }
+
+      .large {
+        display: unset;
+      }
+    }
+
     img {
       width: 100%;
       height: 100%;
@@ -29,6 +49,20 @@
       padding: 1rem 2.5rem;
       border-radius: 8px;
       transition: all 0.4s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+
+      .text {
+        font-size: 1.6rem;
+        color: $gray;
+        font-weight: 600;
+
+        @media (max-width: 560px) {
+          display: none;
+        }
+      }
 
       svg {
         width: 2rem;
@@ -37,6 +71,10 @@
 
       &.active {
         background-color: $lightPurple;
+
+        .text {
+          color: $purple;
+        }
 
         svg path {
           fill: $purple;
@@ -52,5 +90,27 @@
     padding: 0.8rem 1rem;
     border: 1px solid $purple;
     border-radius: 8px;
+
+    img {
+      display: unset;
+    }
+
+    div {
+      display: none;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: $purple;
+    }
+
+    @media (min-width: 560px) {
+      padding: 1rem 2rem;
+
+      img {
+        display: none;
+      }
+      div {
+        display: unset;
+      }
+    }
   }
 }
