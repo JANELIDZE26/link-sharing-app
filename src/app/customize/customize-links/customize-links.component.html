@@ -1,6 +1,6 @@
-<div class="customize-links-container">
-  <div class="smartphone-preview"></div>
-  <div class="add-links">
+<div class="main-container">
+  <div class="preview"></div>
+  <div class="customize-links-container">
     <div class="page-description">
       <div class="header-text">Customize your links</div>
       <div class="description-text">
@@ -33,15 +33,15 @@
       <ng-template #links>
         <div class="links">
           <app-add-link
+            class="link"
             *ngFor="let link of links$ | async; let i = index"
             [link]="link"
             [index]="i + 1"
           ></app-add-link>
         </div>
       </ng-template>
-      <hr />
     </ng-template>
-
+    <div class="split-line"></div>
     <div
       class="save-button button"
       [class.disabled]="isSaveDisabled"

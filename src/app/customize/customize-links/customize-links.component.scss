@@ -5,71 +5,120 @@
   width: 90%;
   margin: auto;
 }
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+}
 // UPPER MOST ELEMENT
 .customize-links-container {
   margin-top: 3rem;
   padding: 2rem;
   background: $white;
+  background: black;
+  height: 72rem;
+  position: relative;
   border-radius: 2rem;
+  position: relative;
 
-  .smartphone-preview {
-    display: none;
+  .page-description {
+    margin-bottom: 2rem;
   }
 
-  .add-links {
-    .page-description {
+  .new-link-button {
+    color: $purple;
+    border: 1px solid $purple;
+
+    &:active,
+    &:hover {
+      background: $lightPurple;
+      transition: all 0.2s;
+    }
+  }
+
+  .lets-get-started {
+    text-align: center;
+    background: $lightGray;
+    padding: 3rem 2rem 2rem 2rem;
+    border-radius: 1rem;
+  }
+
+  .links {
+    height: 40rem;
+    border-radius: 2rem;
+    overflow-y: auto;
+
+    .link:not(:last-of-type) {
       margin-bottom: 2rem;
+      display: block;
+    }
+  }
+
+  .split-line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 9rem;
+    background-color: $borderColor;
+  }
+
+  .save-button {
+    color: $white;
+    border: 1px solid transparent;
+    background: $purple;
+    position: absolute;
+    bottom: -1rem;
+    width: 31rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    &:hover {
+      background: $purpleHover;
+      transition: all 0.2s;
     }
 
-    .new-link-button {
-      color: $purple;
-      border: 1px solid $purple;
-
-      &:active,
-      &:hover {
-        background: $lightPurple;
-        transition: all 0.2s;
-      }
+    &.disabled {
+      background: $lightPurple;
+      cursor: not-allowed;
     }
+  }
 
-    .save-button {
-      color: $white;
-      border: 1px solid transparent;
-      background: $purple;
-      margin-top: 2rem;
-      margin-bottom: 0;
-      position: absolute;
-      bottom: 2rem;
-      width: 31rem;
-      left: 50%;
-      transform: translateX(-50%);
-
-      &:hover {
-        background: $purpleHover;
-        transition: all 0.2s;
-      }
-
-      &.disabled {
-        background: $lightPurple;
-        cursor: not-allowed;
-      }
-    }
+  @media (min-width: 560px) {
+    width: 70rem;
+    height: 62rem;
 
     .lets-get-started {
-      text-align: center;
-      background: $lightGray;
-      padding: 3rem 2rem 2rem 2rem;
-      margin-bottom: 3rem;
-      border-radius: 1rem;
+      height: 42rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .links {
-      margin-bottom: 3rem;
-      height: 40rem;
-      border-radius: 2rem;
-      overflow-y: auto;
+      height: 42rem;
+      padding: 0 1rem;
+    }
+
+    .save-button {
+      bottom: -11rem;
+      width: 16rem;
+      right: 0rem;
+      left: unset;
+      transform: none;
+    }
+
+    .split-line {
+      bottom: -2rem;
     }
   }
+}
+
+.preview {
+  width: 50rem;
+  height: 50rem;
+  background-color: $darkGray;
 }
 
 ///// SHARED [START] //////////////////////////////////
