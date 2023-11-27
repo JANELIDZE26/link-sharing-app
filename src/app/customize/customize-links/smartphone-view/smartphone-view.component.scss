@@ -1,0 +1,70 @@
+@import "../../../../shared/styles/colors.scss";
+
+* {
+  transition: all 0.4s;
+}
+
+.smartphone-view {
+  position: relative;
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 24rem;
+    height: auto;
+    max-height: 32rem;
+    overflow-y: auto;
+    margin: auto;
+    position: absolute;
+    top: 27.8rem;
+    left: 3.3rem;
+    scroll-behavior: smooth;
+    cursor: pointer;
+    border-bottom-left-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .link {
+      display: flex;
+      align-items: center;
+      padding: 1.6rem;
+      text-align: left;
+      border-radius: 1rem;
+      width: 23.7rem;
+      height: 4.4rem;
+      margin-bottom: 2rem;
+      border-radius: 0.8rem;
+
+      .platform-name {
+        font-size: 1.6rem;
+        color: $white;
+        margin-left: 0.8rem;
+      }
+
+      .arrow-icon {
+        margin-left: auto;
+      }
+    }
+
+    &.hideBackground {
+      background: $white;
+    }
+
+    // @media (min-width: 560px) {
+    //   height: 27rem;
+    // }
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30.8rem;
+    height: 63.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

@@ -1,5 +1,4 @@
 @import "../../shared/styles/colors.scss";
-@import "../../shared/styles/platformColors.scss";
 
 * {
   transition: all 0.7s;
@@ -159,73 +158,6 @@
   @media (min-width: 560px) {
     height: 27rem;
   }
-}
-
-// PLATFORM BACKGROUND COLROS
-
-.Facebook {
-  background: $facebook;
-}
-
-.Github {
-  background: $github;
-}
-
-.FrontendMentor {
-  background: $frontendMentor;
-  border: 1px solid $borderColor !important;
-
-  .platform-name {
-    color: $darkGray !important;
-  }
-}
-
-.Twitter {
-  background: $twitter;
-}
-
-.LinkedIn {
-  background: $linkedIn;
-}
-
-.Youtube {
-  background: $youtube;
-}
-
-.Facebook {
-  background: $facebook;
-}
-
-.Twitch {
-  background: $twitch;
-}
-
-.DevTo {
-  background: $devTo;
-}
-
-.CodeWars {
-  background: $codeWars;
-}
-
-.FreeCodeCamp {
-  background: $freeCodeCamp;
-}
-
-.GitLab {
-  background: $gitlab;
-}
-
-.HashNode {
-  background: $hashNode;
-}
-
-.StackOverflow {
-  background: $stackOverflow;
-}
-
-.CodePen {
-  background: $codePen;
 }
 
 .icon {

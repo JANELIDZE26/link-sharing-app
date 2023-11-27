@@ -13,10 +13,12 @@ import {
   templateUrl: './svg-component.component.html',
   styleUrls: ['./svg-component.component.scss'],
 })
-export class SvgComponentComponent implements OnInit {
+export class SvgComponentComponent {
   // TODO try to fetch data always in same order.
 
-  @Input({ required: true }) iconPath!: string;
+  @Input({ required: true }) public set iconPath(iconPath: string) {
+    this.loadSvg(iconPath);
+  }
   @Input({ required: false }) dimensions?:
     | { width: string; height: string }
     | undefined;
@@ -30,13 +32,9 @@ export class SvgComponentComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    this.loadSvg();
-  }
-
-  private loadSvg(): void {
+  private loadSvg(iconPath: string): void {
     this.http
-      .get(this.iconPath, {
+      .get(iconPath, {
         responseType: 'text',
       })
       .subscribe((data) => {

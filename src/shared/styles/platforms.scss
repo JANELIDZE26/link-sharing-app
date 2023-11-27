@@ -1,0 +1,142 @@
+@import "./colors.scss";
+
+$github: #1a1a1a;
+$frontendMentor: #fff;
+$twitter: #43b7e9;
+$linkedIn: #2d68ff;
+$youtube: #ee3939;
+$facebook: #2442ac;
+$twitch: #ee3fc8;
+$devTo: #191919;
+$codeWars: #8a1a50;
+$freeCodeCamp: #302267;
+$gitlab: #eb4925;
+$hashNode: #0330d1;
+$stackOverflow: #ec7100;
+$codePen: #d3b88c;
+
+// PLATFORM BACKGROUND COLROS
+.Facebook {
+  background: $facebook;
+
+  &:hover {
+    background: darken($facebook, 15%);
+  }
+}
+
+.Github {
+  background: $github;
+  
+  &:hover {
+    background: darken($github, 15%);
+  }
+}
+
+.FrontendMentor {
+  background: $frontendMentor;
+  border: 1px solid $borderColor !important;
+
+  .platform-name {
+    color: $darkGray !important;
+  }
+
+  &:hover {
+    background: darken($frontendMentor, 15%);
+  }
+}
+
+.Twitter {
+  background: $twitter;
+
+  &:hover {
+    background: darken($twitter, 15%);
+  }
+}
+
+.LinkedIn {
+  background: $linkedIn;
+
+  &:hover {
+    background: darken($linkedIn, 15%);
+  }
+}
+
+.Youtube {
+  background: $youtube;
+
+  &:hover {
+    background: darken($youtube, 15%);
+  }
+}
+
+.Facebook {
+  background: $facebook;
+
+  &:hover {
+    background: darken($facebook, 15%);
+  }
+}
+
+.Twitch {
+  background: $twitch;
+
+  &:hover {
+    background: darken($twitch, 15%);
+  }
+}
+
+.DevTo {
+  background: $devTo;
+
+  &:hover {
+    background: darken($devTo, 15%);
+  }
+}
+
+.CodeWars {
+  background: $codeWars;
+
+  &:hover {
+    background: darken($codeWars, 15%);
+  }
+}
+
+.FreeCodeCamp {
+  background: $freeCodeCamp;
+
+  &:hover {
+    background: darken($freeCodeCamp, 15%);
+  }
+}
+
+.GitLab {
+  background: $gitlab;
+
+  &:hover {
+    background: darken($gitlab, 15%);
+  }
+}
+
+.HashNode {
+  background: $hashNode;
+
+  &:hover {
+    background: darken($hashNode, 15%);
+  }
+}
+
+.StackOverflow {
+  background: $stackOverflow;
+
+  &:hover {
+    background: darken($stackOverflow, 15%);
+  }
+}
+
+.CodePen {
+  background: $codePen;
+
+  &:hover {
+    background: darken($codePen, 15%);
+  }
+}

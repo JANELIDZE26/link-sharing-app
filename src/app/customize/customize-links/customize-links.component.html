@@ -1,6 +1,8 @@
 <div class="main-container">
   <div class="preview">
-    <app-smartphone-view></app-smartphone-view>
+    <app-smartphone-view
+      [links]="links$ | async"
+    ></app-smartphone-view>
   </div>
   <div class="customize-links-container">
     <div class="page-description">

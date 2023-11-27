@@ -7,7 +7,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
-  styleUrls: ['./preview.component.scss'],
+  styleUrls: ['./preview.component.scss', '../../shared/styles/platforms.scss'],
 })
 export class PreviewComponent implements OnInit {
   public profileImage: string | undefined;
@@ -36,13 +36,17 @@ export class PreviewComponent implements OnInit {
   }
 
   onOpenLink(link: string): void {
-    const prefix = 'http://www';
-
-    if (!link.startsWith(prefix)) {
-      window.open(`${prefix}.${link}`, '_blank');
-    } else {
+    if (this.isValidUrl(link)) {
       window.open(link, '_blank');
+    } else {
+      console.error('Invalid link');
     }
+  }
+
+  private isValidUrl(url: string): boolean {
+    // URL validation logic (same as above)
+    const urlPattern = /^https?:\/\/[^\s$.?#].[^\s]*$/;
+    return urlPattern.test(url);
   }
 
   onCopyToClipboard(element: any) {
