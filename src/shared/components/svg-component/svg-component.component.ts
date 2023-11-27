@@ -14,7 +14,6 @@ import {
   styleUrls: ['./svg-component.component.scss'],
 })
 export class SvgComponentComponent implements OnInit {
-  // TODO rewrite svg manipulations using js.
   // TODO try to fetch data always in same order.
 
   @Input({ required: true }) iconPath!: string;
