@@ -21,7 +21,7 @@ export class ApiService {
     private auth: AuthService
   ) {}
 
-  public addUserData(userProfile: FirebaseUserProfile): void {
+  public addLinks(userProfile: FirebaseUserProfile): void {
     const collection = this.firestore.collection('links');
     collection
       .add(userProfile)
@@ -48,7 +48,7 @@ export class ApiService {
       });
   }
 
-  public fetchUserData(): Observable<Map<string, Link>> {
+  public getLinks(): Observable<Map<string, Link>> {
     return this.firestore
       .collection('links', (ref) => ref.where('userId', '==', this.auth.userId))
       .get()
@@ -115,7 +115,7 @@ export class ApiService {
   }
 
   public getPreviewDetails(): Observable<any> {
-    return combineLatest([this.getProfileDetails(), this.fetchUserData()]);
+    return combineLatest([this.getProfileDetails(), this.getLinks()]);
   }
 
   private uploadImage(image: File) {

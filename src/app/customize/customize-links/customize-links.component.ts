@@ -16,7 +16,6 @@ export class CustomizeLinksComponent implements OnInit {
   // TODO unsubscribe
   public isSaveDisabled: boolean = true;
   public links$: Observable<Link[]> = this.linksService.links$.pipe(
-    map((links) => Array.from(links.values())),
     tap((links) => {
       if (!links.length) {
         this.isSaveDisabled = true;
@@ -30,7 +29,7 @@ export class CustomizeLinksComponent implements OnInit {
 
   ngOnInit() {
     this.showSpinner = true;
-    this.api.fetchUserData().subscribe(
+    this.api.getLinks().subscribe(
       (result) => {
         if (result.size) {
           this.isEditMode = true;
@@ -56,7 +55,7 @@ export class CustomizeLinksComponent implements OnInit {
     if (this.isEditMode) {
       this.api.editLinks(this.linksService.getLinksAsFirebaseObject());
     } else {
-      this.api.addUserData(this.linksService.getLinksAsFirebaseObject());
+      this.api.addLinks(this.linksService.getLinksAsFirebaseObject());
     }
   }
 }

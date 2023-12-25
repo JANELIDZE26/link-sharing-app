@@ -1,27 +1,25 @@
 @import "../../../shared/styles/colors.scss";
 
+* {
+  transition: all 0.4s;
+}
+
 :host {
   display: block;
-  width: 90%;
-  margin: auto;
+
+  @media (min-width: 1440px) {
+    width: 50%;
+  }
 }
 
-.main-container {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-top: 3rem;
-
-  
-}
 // UPPER MOST ELEMENT
 .customize-links-container {
   padding: 2rem;
   background: $white;
-  height: 72rem;
-  position: relative;
+  margin: auto;
+  height: 100%;
+  width: 100%;
   border-radius: 2rem;
-  position: relative;
 
   .page-description {
     margin-bottom: 2rem;
@@ -42,13 +40,15 @@
     text-align: center;
     background: $lightGray;
     padding: 3rem 2rem 2rem 2rem;
+    margin: 3rem 0;
     border-radius: 1rem;
   }
 
   .links {
-    height: 40rem;
+    height: calc(100% - 26rem);
     border-radius: 2rem;
     overflow-y: auto;
+    margin: 2rem auto 2rem auto;
 
     .link:not(:last-of-type) {
       margin-bottom: 2rem;
@@ -57,11 +57,7 @@
   }
 
   .split-line {
-    position: absolute;
-    width: 100%;
     height: 1px;
-    left: 0;
-    bottom: 9rem;
     background-color: $borderColor;
   }
 
@@ -69,11 +65,7 @@
     color: $white;
     border: 1px solid transparent;
     background: $purple;
-    position: absolute;
-    bottom: -1rem;
-    width: 31rem;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-top: 2rem;
 
     &:hover {
       background: $purpleHover;
@@ -86,56 +78,28 @@
     }
   }
 
-  @media (min-width: 560px) {
-    width: 70rem;
-    height: 62rem;
+  @media (max-width: 375px) {
+    .links {
+      height: calc(100% - 30rem);
+    }
+  }
 
-    .lets-get-started {
-      height: 42rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+  @media (min-width: 576px) {
+    .save-button {
+      width: 15rem;
+      margin-left: auto;
+      margin-top: 4rem;
     }
 
     .links {
-      height: 42rem;
       padding: 0 1rem;
     }
+  }
 
-    .save-button {
-      bottom: -11rem;
-      width: 16rem;
-      right: 0rem;
-      left: unset;
-      transform: none;
-    }
-
+  @media (min-width: 1024px) {
     .split-line {
-      bottom: -2rem;
+      margin-top: 2rem;
     }
-  }
-
-  @media (min-width: 900px) {
-    height: 70rem;
-
-    .links {
-      height: 50rem;
-    }
-  }
-}
-
-.preview {
-  width: 70rem;
-  height: 70rem;
-  background-color: $white;
-  border-radius: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  @media (max-width: 900px) {
-    display: none;
   }
 }
 
@@ -162,7 +126,6 @@
   font-size: 1.6rem;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 3rem;
   cursor: pointer;
 }
 

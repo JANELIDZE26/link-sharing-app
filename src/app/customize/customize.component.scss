@@ -1,6 +1,21 @@
 @import "../../shared/styles/colors.scss";
 
-.customize {
+.container {
   background: $lightGray;
   height: 100vh;
+
+  .customize {
+    margin: 5rem auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 18.2rem);
+  }
+
+  @media (min-width: 1024px) {
+    .customize {
+      min-height: 70rem;
+      gap: 2rem;
+    }
+  }
 }

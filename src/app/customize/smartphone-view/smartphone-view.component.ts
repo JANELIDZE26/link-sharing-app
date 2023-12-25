@@ -7,11 +7,11 @@ import { Link } from 'src/models/interfaces/link';
   templateUrl: './smartphone-view.component.html',
   styleUrls: [
     './smartphone-view.component.scss',
-    '../../../../shared/styles/platforms.scss',
+    '../../../shared/styles/platforms.scss',
   ],
 })
 export class SmartphoneViewComponent {
-  @Input({ required: true }) links!: Link[] | null;
+  @Input() links!: Link[] | null;
   public readonly PLATFORM = Platform;
 
   onOpenLink(link: string): void {

@@ -27,7 +27,7 @@ import { SafeHtmlPipePipe } from './pipes/safe-html-pipe.pipe';
 import { SvgComponentComponent } from '../shared/components/svg-component/svg-component.component';
 import { provideHotToastConfig } from '@ngneat/hot-toast';
 import { SpinnerComponent } from 'src/shared/components/spinner/spinner.component';
-import { SmartphoneViewComponent } from './customize/customize-links/smartphone-view/smartphone-view.component';
+import { SmartphoneViewComponent } from './customize/smartphone-view/smartphone-view.component';
 
 @NgModule({
   declarations: [

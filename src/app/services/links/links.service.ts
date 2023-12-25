@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Platform } from 'src/models/enums/platform';
 import { FirebaseUserProfile } from 'src/models/interfaces/firebaseUser';
 import { Link } from 'src/models/interfaces/link';
@@ -12,8 +12,10 @@ export class LinksService {
   private _links$ = new BehaviorSubject<Map<string, Link>>(new Map());
   private currentlyEditing: Link | undefined;
 
-  get links$(): Observable<Map<string, Link>> {
-    return this._links$.asObservable();
+  get links$(): Observable<Link[]> {
+    return this._links$
+      .asObservable()
+      .pipe(map((links) => Array.from(links.values())));
   }
 
   constructor(private auth: AuthService) {}
