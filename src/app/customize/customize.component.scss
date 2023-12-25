@@ -1,15 +1,14 @@
 @import "../../shared/styles/colors.scss";
 
 .container {
-  background: $lightGray;
-  height: 100vh;
+  background: $lightGray; 
+  min-height: 100vh;
 
   .customize {
-    margin: 5rem auto;
+    margin: 3rem auto;
     padding: 0 2rem;
     display: flex;
     justify-content: center;
-    height: calc(100vh - 18.2rem);
   }
 
   @media (min-width: 1024px) {
