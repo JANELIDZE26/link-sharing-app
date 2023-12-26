@@ -192,3 +192,44 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.button {
+  border-radius: 8px;
+  border: 1px solid $purple;
+  background-color: $purple;
+  color: $white;
+  width: 45%;
+  padding: 1.1rem 2.7rem;
+  text-align: center;
+  font-weight: 600;
+  font-family: Instrument Sans;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 3rem;
+
+  .logout {
+    width: 15rem;
+    margin-top: 3rem;
+
+    &:hover {
+      background: $white;
+      color: $purple;
+      transition: all 0.2s;
+    }
+  }
+
+  @media (max-width: 578px) {
+    padding: 3rem 0;
+    justify-content: center;
+
+    .logout {
+      width: 80%;
+    }
+  }
+}

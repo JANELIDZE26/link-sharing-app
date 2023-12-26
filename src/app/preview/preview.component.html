@@ -1,9 +1,9 @@
 <div class="preview-header">
   <div class="panel">
-    <div class="back-to-editor" routerLink="/customize/links">
+    <div class="back-to-editor button" routerLink="/customize/links">
       Back to Editor
     </div>
-    <div class="share-link" (click)="onCopyToClipboard(toastrTemplate)">
+    <div class="share-link button" (click)="onCopyToClipboard(toastrTemplate)">
       Share Link
     </div>
   </div>
@@ -58,6 +58,10 @@
     </div>
   </div>
 </ng-template>
+
+<div class="btn">
+  <button (click)="onLogout()" class="button logout">Log out</button>
+</div>
 
 <ng-template #toastrTemplate>
   <div class="hotToastContainer">

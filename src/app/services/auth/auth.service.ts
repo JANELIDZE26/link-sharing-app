@@ -32,6 +32,10 @@ export class AuthService {
     private router: Router
   ) {}
 
+  public getJwtToken(): User {
+    return JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_KEY)!);
+  }
+
   public createUser(email: string, password: string): Promise<any> {
     return this.auth
       .createUserWithEmailAndPassword(email, password)
@@ -70,7 +74,7 @@ export class AuthService {
     }
   }
 
-  private logOut(): void {
+  public logOut(): void {
     this._authState$.next(false);
     this._userId = undefined;
     this._token = undefined;
@@ -99,10 +103,6 @@ export class AuthService {
       expiration: expirationDate.toISOString(),
     };
     localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(jwt));
-  }
-
-  public getJwtToken(): User {
-    return JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_KEY)!);
   }
 
   private removeJwtToken(): void {

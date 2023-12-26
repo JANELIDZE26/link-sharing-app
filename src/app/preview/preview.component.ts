@@ -6,6 +6,8 @@ import { Platform } from 'src/models/enums/platform';
 import { HotToastService } from '@ngneat/hot-toast';
 import { LinksService } from '../services/links/links.service';
 import { ProfileDetailsService } from '../services/profile-details/profile-details.service';
+import { AuthService } from '../services/auth/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
@@ -22,7 +24,9 @@ export class PreviewComponent implements OnInit {
     private api: ApiService,
     private hotToast: HotToastService,
     private linksService: LinksService,
-    private profileDetailsService: ProfileDetailsService
+    private profileDetailsService: ProfileDetailsService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -76,5 +80,10 @@ export class PreviewComponent implements OnInit {
       position: 'bottom-center',
       className: 'toastrClass',
     });
+  }
+
+  onLogout(): void {
+    this.authService.logOut();
+    this.router.navigateByUrl('/auth');
   }
 }
