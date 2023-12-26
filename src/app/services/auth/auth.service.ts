@@ -70,10 +70,6 @@ export class AuthService {
     }
   }
 
-  public isAuthenticated(): boolean {
-    return this._authState$.getValue();
-  }
-
   private logOut(): void {
     this._authState$.next(false);
     this._userId = undefined;
@@ -105,7 +101,7 @@ export class AuthService {
     localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(jwt));
   }
 
-  private getJwtToken(): User {
+  public getJwtToken(): User {
     return JSON.parse(localStorage.getItem(this.LOCAL_STORAGE_KEY)!);
   }
 

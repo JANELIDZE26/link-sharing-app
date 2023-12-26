@@ -24,14 +24,18 @@ const routes: Routes = [
   {
     path: 'customize',
     component: CustomizeComponent,
-    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'links', pathMatch: 'full' },
       {
         path: 'links',
+        canActivate: [authGuard],
         component: CustomizeLinksComponent,
       },
-      { path: 'profile-details', component: ProfileDetailsComponent },
+      {
+        path: 'profile-details',
+        canActivate: [authGuard],
+        component: ProfileDetailsComponent,
+      },
     ],
   },
   {
