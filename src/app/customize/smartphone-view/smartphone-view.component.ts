@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LinksService } from 'src/app/services/links/links.service';
+import { ProfileDetailsService } from 'src/app/services/profile-details/profile-details.service';
 import { Platform } from 'src/models/enums/platform';
 import { Link } from 'src/models/interfaces/link';
 
@@ -15,8 +16,15 @@ import { Link } from 'src/models/interfaces/link';
 export class SmartphoneViewComponent {
   public readonly PLATFORM = Platform;
   public links$: Observable<Link[]> = this.linksService.links$;
+  public profileDetails$ = this.profileDetailsService.profileDetails$.pipe(
+    tap(console.log)
+  );
+  public imageUrl$ = this.profileDetailsService.imageUrl$;
 
-  constructor(private linksService: LinksService) {}
+  constructor(
+    private linksService: LinksService,
+    private profileDetailsService: ProfileDetailsService
+  ) {}
 
   onOpenLink(link: string): void {
     if (this.isValidUrl(link)) {

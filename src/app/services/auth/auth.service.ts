@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { TimeoutService } from '../timeout.service';
+import { TimeoutService } from '../timeout/timeout.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/models/interfaces/user';
 import { Router } from '@angular/router';

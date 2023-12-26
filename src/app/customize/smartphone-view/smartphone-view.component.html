@@ -5,9 +5,28 @@
     ></app-svg-component>
     <div class="overlay">
       <div class="profile">
-        <div class="image"></div>
-        <div class="username"></div>
-        <div class="email"></div>
+        <div class="image" *ngIf="imageUrl$ | async as imageUrl">
+          <img [src]="imageUrl" alt="profile image" />
+        </div>
+        <ng-container *ngIf="profileDetails$ | async as profileDetails">
+          <div
+            class="username"
+            [ngClass]="{
+              exists:
+                profileDetails.firstName.length +
+                  profileDetails.lastName.length >
+                0
+            }"
+          >
+            {{ profileDetails.firstName }} {{ profileDetails.lastName }}
+          </div>
+          <div
+            class="email"
+            [ngClass]="{ exists: profileDetails.email.length }"
+          >
+            {{ profileDetails.email }}
+          </div>
+        </ng-container>
       </div>
       <div
         class="links"

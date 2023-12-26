@@ -3,5 +3,5 @@ export interface ProfileDetails {
     firstName: string;
     lastName: string;
     email: string;
-    profileImage: File;
+    profileImage?: File;
 }

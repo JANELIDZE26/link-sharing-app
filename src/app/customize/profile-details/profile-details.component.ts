@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageValidation } from 'src/models/enums/image-validation';
 import { imageValidators } from 'src/utils/image-validators/combined-validators';
 import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
+import { ProfileDetailsService } from 'src/app/services/profile-details/profile-details.service';
 
 enum FormControls {
   firstName = 'firstName',
@@ -39,7 +40,8 @@ export class ProfileDetailsComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private profileDetailsService: ProfileDetailsService
   ) {}
 
   public getImageValidator(validatorType: ImageValidation): number | null {
@@ -57,6 +59,7 @@ export class ProfileDetailsComponent implements OnInit {
       ([image, userProfile]) => {
         this.imageUrl = image;
         this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
+        this.profileDetailsService.setImageUrl(image);
 
         if (userProfile) {
           this.isEditMode = true;
@@ -68,9 +71,13 @@ export class ProfileDetailsComponent implements OnInit {
       }
     );
 
-    // if profile details exist, put them in form if not create empty form group
-
     this.profileDetailsForm = this.buildEmptyForm();
+
+    this.profileDetailsForm.valueChanges.subscribe((userProfile) => {
+      this.profileDetailsService.setProfileDetails(
+        userProfile as ProfileDetails
+      );
+    });
   }
 
   public onSave(): void {
@@ -96,6 +103,7 @@ export class ProfileDetailsComponent implements OnInit {
     if (file) {
       fs.onload = (event) => {
         this.imageUrl = event.target!.result;
+        this.profileDetailsService.setImageUrl(this.imageUrl);
       };
       fs.readAsDataURL(file);
     } else {
