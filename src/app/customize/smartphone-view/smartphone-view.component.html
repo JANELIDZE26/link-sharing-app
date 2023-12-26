@@ -1,41 +1,44 @@
 <div class="smartphone-view">
-  <app-svg-component
-    [iconPath]="'../../../../assets/images/illustration-phone-mockup.svg'"
-  ></app-svg-component>
-  <div class="overlay">
-    <div class="profile">
-      <div class="image"></div>
-      <div class="username"></div>
-      <div class="email"></div>
-    </div>
-    <div
-      class="links"
-      [ngClass]="{ hideBackground: links && links.length > 5 }"
-    >
+  <div class="container">
+    <app-svg-component
+      [iconPath]="'../../../../assets/images/illustration-phone-mockup.svg'"
+    ></app-svg-component>
+    <div class="overlay">
+      <div class="profile">
+        <div class="image"></div>
+        <div class="username"></div>
+        <div class="email"></div>
+      </div>
       <div
-        class="link {{ link.platform }}"
-        *ngFor="let link of links"
-        (click)="onOpenLink(link.linkUrl)"
+        class="links"
+        *ngIf="links$ | async as links"
+        [ngClass]="{ hideBackground: links && links.length > 5 }"
       >
-        <div class="platform-icon">
-          <app-svg-component
-            [color]="
-              link.platform === PLATFORM.FrontendMentor ||
-              link.platform === PLATFORM.DevTo
-                ? ''
-                : 'white'
-            "
-            iconPath="assets/images/platforms/{{ link.platform }}.svg"
-            [dimensions]="{ width: '2rem', height: '2rem' }"
-          >
-          </app-svg-component>
-        </div>
-        <div class="platform-name">{{ link.platform }}</div>
-        <div class="arrow-icon">
-          <img
-            src="../../assets/images/icon-arrow-right.svg"
-            alt="right arrow icon"
-          />
+        <div
+          class="link {{ link.platform }}"
+          *ngFor="let link of links"
+          (click)="onOpenLink(link.linkUrl)"
+        >
+          <div class="platform-icon">
+            <app-svg-component
+              [color]="
+                link.platform === PLATFORM.FrontendMentor ||
+                link.platform === PLATFORM.DevTo
+                  ? ''
+                  : 'white'
+              "
+              iconPath="assets/images/platforms/{{ link.platform }}.svg"
+              [dimensions]="{ width: '2rem', height: '2rem' }"
+            >
+            </app-svg-component>
+          </div>
+          <div class="platform-name">{{ link.platform }}</div>
+          <div class="arrow-icon">
+            <img
+              src="../../assets/images/icon-arrow-right.svg"
+              alt="right arrow icon"
+            />
+          </div>
         </div>
       </div>
     </div>

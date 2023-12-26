@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { LinksService } from 'src/app/services/links/links.service';
 import { Platform } from 'src/models/enums/platform';
 import { Link } from 'src/models/interfaces/link';
 
@@ -11,8 +13,10 @@ import { Link } from 'src/models/interfaces/link';
   ],
 })
 export class SmartphoneViewComponent {
-  @Input() links!: Link[] | null;
   public readonly PLATFORM = Platform;
+  public links$: Observable<Link[]> = this.linksService.links$;
+
+  constructor(private linksService: LinksService) {}
 
   onOpenLink(link: string): void {
     if (this.isValidUrl(link)) {

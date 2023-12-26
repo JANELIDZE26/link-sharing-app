@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Platform } from 'src/models/enums/platform';
-import { FirebaseUserProfile } from 'src/models/interfaces/firebaseUser';
+import { FirebaseLinks } from 'src/models/interfaces/firebaseUser';
 import { Link } from 'src/models/interfaces/link';
 import * as uuid from 'uuid';
 import { AuthService } from '../auth/auth.service';
@@ -32,8 +32,8 @@ export class LinksService {
     return this._links$.getValue();
   }
 
-  public getLinksAsFirebaseObject(): FirebaseUserProfile {
-    const links: FirebaseUserProfile = {
+  public getLinksAsFirebaseObject(): FirebaseLinks {
+    const links: FirebaseLinks = {
       userId: '',
       links: {},
     };

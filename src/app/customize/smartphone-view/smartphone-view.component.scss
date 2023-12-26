@@ -4,8 +4,13 @@
   transition: all 0.4s;
 }
 
-.smartphone-view {
+.container {
   position: relative;
+  width: 30.8rem;
+  height: 63.2rem;
+}
+
+.smartphone-view {
   width: 40rem;
   height: 100%;
   background-color: $white;
@@ -68,16 +73,11 @@
     &.hideBackground {
       background: $white;
     }
-
-    // @media (min-width: 560px) {
-    //   height: 27rem;
-    // }
   }
 
   .overlay {
     position: absolute;
     top: 0;
-    left: 0;
     width: 30.8rem;
     height: 63.2rem;
     left: 50%;
