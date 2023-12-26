@@ -8,7 +8,9 @@ import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 })
 export class ProfileDetailsService {
   private _profileDetails$ = new BehaviorSubject<ProfileDetails | null>(null);
-  private _imageUrl$ = new Subject<string | ArrayBuffer | null | undefined>();
+  private _imageUrl$ = new BehaviorSubject<
+    string | ArrayBuffer | null | undefined
+  >(null);
 
   get profileDetails$(): Observable<ProfileDetails | null> {
     return this._profileDetails$.asObservable();
@@ -16,6 +18,10 @@ export class ProfileDetailsService {
 
   get imageUrl$(): Observable<string | ArrayBuffer | null | undefined> {
     return this._imageUrl$.asObservable();
+  }
+
+  get isProfileDetailsLoaded(): boolean {
+    return !!this._profileDetails$.getValue() && !!this._imageUrl$.getValue();
   }
 
   constructor(private profileDetails: ApiService) {}

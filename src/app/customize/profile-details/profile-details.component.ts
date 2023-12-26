@@ -54,7 +54,6 @@ export class ProfileDetailsComponent implements OnInit {
 
   public ngOnInit() {
     this.showSpinner = true;
-    // await fetch profile details
     this.apiService.getProfileDetails().subscribe(
       ([image, userProfile]) => {
         this.imageUrl = image;

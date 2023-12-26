@@ -24,6 +24,10 @@ export class LinksService {
     this._links$.next(links);
   }
 
+  get areLinksLoaded(): boolean {
+    return this._links$.value.size > 0;
+  }
+
   private getLink(linkId: string): Link | undefined {
     return this.getLinks().get(linkId);
   }

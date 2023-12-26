@@ -25,9 +25,9 @@ const routes: Routes = [
     component: CustomizeComponent,
     canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: 'customize-links', pathMatch: 'full' },
+      { path: '', redirectTo: 'links', pathMatch: 'full' },
       {
-        path: 'customize-links',
+        path: 'links',
         component: CustomizeLinksComponent,
       },
       { path: 'profile-details', component: ProfileDetailsComponent },
