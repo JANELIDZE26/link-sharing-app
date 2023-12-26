@@ -28,6 +28,7 @@ import { SvgComponentComponent } from '../shared/components/svg-component/svg-co
 import { provideHotToastConfig } from '@ngneat/hot-toast';
 import { SpinnerComponent } from 'src/shared/components/spinner/spinner.component';
 import { SmartphoneViewComponent } from './customize/smartphone-view/smartphone-view.component';
+import { ShrinkString } from './pipes/shrink-string.pipe';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SmartphoneViewComponent } from './customize/smartphone-view/smartphone-
     SvgComponentComponent,
     SpinnerComponent,
     SmartphoneViewComponent,
+    ShrinkString,
   ],
   imports: [
     BrowserModule,

@@ -18,7 +18,10 @@
                 0
             }"
           >
-            {{ profileDetails.firstName }} {{ profileDetails.lastName }}
+            {{
+              profileDetails.firstName
+                | shrinkString : 22 : false : profileDetails.lastName
+            }}
           </div>
           <div
             class="email"
