@@ -24,7 +24,7 @@ export class LinksService {
     this._links$.next(links);
   }
 
-  get areLinksLoaded(): boolean {
+  get linksAreLoaded(): boolean {
     return this._links$.value.size > 0;
   }
 

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from '../api/api.service';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 
 @Injectable({
@@ -24,7 +23,7 @@ export class ProfileDetailsService {
     return !!this._profileDetails$.getValue() && !!this._imageUrl$.getValue();
   }
 
-  constructor(private profileDetails: ApiService) {}
+  constructor() {}
 
   public setProfileDetails(profileDetails: ProfileDetails) {
     this._profileDetails$.next(profileDetails);

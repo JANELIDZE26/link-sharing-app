@@ -42,7 +42,7 @@ export class SmartphoneViewComponent implements OnInit {
       });
     } else if (
       this.router.url === '/customize/profile-details' &&
-      !this.linksService.areLinksLoaded
+      !this.linksService.linksAreLoaded
     ) {
       this.apiService.getLinks().subscribe((result) => {
         this.linksService.setLinks(result);

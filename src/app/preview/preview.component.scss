@@ -126,6 +126,7 @@
     font-weight: 700;
     color: $darkGray;
     margin: 2.4rem 0 1rem 0;
+    white-space: nowrap;
   }
 
   .email {
@@ -147,7 +148,7 @@
   overflow-y: auto;
   height: 45rem;
   padding-right: 2rem;
-  margin: auto;
+  margin-left: auto;
 
   .link {
     display: flex;

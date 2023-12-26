@@ -4,6 +4,8 @@ import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 import { Link } from 'src/models/interfaces/link';
 import { Platform } from 'src/models/enums/platform';
 import { HotToastService } from '@ngneat/hot-toast';
+import { LinksService } from '../services/links/links.service';
+import { ProfileDetailsService } from '../services/profile-details/profile-details.service';
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
@@ -16,7 +18,12 @@ export class PreviewComponent implements OnInit {
   public showSpinner: boolean = false;
   public readonly PLATFORM = Platform;
 
-  constructor(private api: ApiService, private hotToast: HotToastService) {}
+  constructor(
+    private api: ApiService,
+    private hotToast: HotToastService,
+    private linksService: LinksService,
+    private profileDetailsService: ProfileDetailsService
+  ) {}
 
   ngOnInit(): void {
     this.showSpinner = true;
@@ -27,6 +34,9 @@ export class PreviewComponent implements OnInit {
         this.links = Array.from(links as Map<string, Link>).map(
           ([_, link]) => link
         );
+        this.linksService.setLinks(links);
+        this.profileDetailsService.setProfileDetails(profileDetails);
+        this.profileDetailsService.setImageUrl(image);
       },
       null,
       () => {

@@ -27,7 +27,7 @@
             class="email"
             [ngClass]="{ exists: profileDetails.email.length }"
           >
-            {{ profileDetails.email }}
+            {{ profileDetails.email | shrinkString : 32 : false }}
           </div>
         </ng-container>
       </div>
