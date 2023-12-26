@@ -89,6 +89,10 @@
           fill: $purple;
         }
       }
+
+      &:hover:not(.active) {
+        transform: scale(1.05);
+      }
     }
   }
 
@@ -120,6 +124,14 @@
       }
       div {
         display: unset;
+      }
+
+      &:hover {
+        background-color: $purple;
+
+        div {
+          color: $white;
+        }
       }
     }
   }

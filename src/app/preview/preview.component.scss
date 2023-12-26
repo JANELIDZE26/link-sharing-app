@@ -50,11 +50,24 @@
       font-weight: 600;
       font-family: Instrument Sans;
       font-size: 1.6rem;
+      cursor: pointer;
     }
 
     .back-to-editor {
       background-color: $white;
       color: $purple;
+
+      &:hover {
+        background-color: $purple;
+        color: $white;
+      }
+    }
+
+    .share-link {
+      &:hover {
+        background-color: $white;
+        color: $purple;
+      }
     }
   }
 
@@ -77,7 +90,7 @@
 }
 
 .details {
-  width: 33.5rem;
+  width: 37.5rem;
   margin: auto;
 
   @media (min-width: 560px) {
@@ -133,6 +146,7 @@
   width: 90%;
   overflow-y: auto;
   height: 45rem;
+  padding-right: 2rem;
   margin: auto;
 
   .link {
