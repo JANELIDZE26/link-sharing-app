@@ -15,7 +15,6 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./svg-component.component.scss'],
 })
 export class SvgComponentComponent implements OnDestroy {
-  // TODO try to fetch data always in same order.
   private unsubscribes$ = new Subject<void>();
 
   @Input({ required: true }) public set iconPath(iconPath: string) {

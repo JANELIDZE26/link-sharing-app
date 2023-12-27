@@ -8,9 +8,7 @@ export const imageValidators = (control: AbstractControl) => {
   return mimeTypeValidator(control).pipe(
     switchMap((errors) => {
       if (errors) return of(errors);
-      return of(null);
-      // TODO uncomment before publishing
-      // return ratioValidator(control);
+      return ratioValidator(control);
     })
   );
 };

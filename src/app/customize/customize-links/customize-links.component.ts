@@ -20,8 +20,6 @@ import { Link } from 'src/models/interfaces/link';
 })
 export class CustomizeLinksComponent implements OnInit, OnDestroy {
   private isEditMode: boolean = false;
-
-  // TODO unsubscribe
   public isSaveDisabled: boolean = true;
   public links: Link[] | undefined;
   private unsubscribes$ = new Subject<void>();

@@ -62,6 +62,7 @@ export class LinksService {
 
   public editPlatform(value: Platform): void {
     this.currentlyEditing!.platform = value;
+    this._links$.next(this.getLinks());
   }
 
   public removeLink(id: string): void {

@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ApiService } from 'src/app/services/api/api.service';
 import { LinksService } from 'src/app/services/links/links.service';
 import { ProfileDetailsService } from 'src/app/services/profile-details/profile-details.service';
 import { Platform } from 'src/models/enums/platform';
