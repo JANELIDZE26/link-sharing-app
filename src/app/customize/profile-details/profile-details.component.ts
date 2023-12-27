@@ -1,10 +1,17 @@
 import { ApiService } from 'src/app/services/api/api.service';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageValidation } from 'src/models/enums/image-validation';
 import { imageValidators } from 'src/utils/image-validators/combined-validators';
 import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 import { ProfileDetailsService } from 'src/app/services/profile-details/profile-details.service';
+import { Subject, filter, takeUntil, zip } from 'rxjs';
 
 enum FormControls {
   firstName = 'firstName',
@@ -19,13 +26,14 @@ enum FormControls {
   styleUrls: ['./profile-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileDetailsComponent implements OnInit {
+export class ProfileDetailsComponent implements OnInit, OnDestroy {
   public profileDetailsForm!: FormGroup;
   public imageUrl: string | ArrayBuffer | null | undefined;
   public isDragOver: boolean = false;
   public isSaveDisabled: boolean = true;
   public isEditMode: boolean = false;
   public showSpinner: boolean = false;
+  private unsubscribes$ = new Subject<void>();
 
   get FormControls() {
     return FormControls;
@@ -42,7 +50,8 @@ export class ProfileDetailsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
-    private profileDetailsService: ProfileDetailsService
+    private profileDetailsService: ProfileDetailsService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   public getImageValidator(validatorType: ImageValidation): number | null {
@@ -55,29 +64,43 @@ export class ProfileDetailsComponent implements OnInit {
 
   public ngOnInit() {
     this.showSpinner = true;
-    this.apiService.getProfileDetails().subscribe(
-      ([image, userProfile]) => {
-        this.imageUrl = image;
-        this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
-        this.profileDetailsService.setImageUrl(image);
-
-        if (userProfile) {
-          this.isEditMode = true;
-        }
-      },
-      null,
-      () => {
-        this.showSpinner = false;
-      }
-    );
-
     this.profileDetailsForm = this.buildEmptyForm();
+    zip([
+      this.profileDetailsService.imageUrl$,
+      this.profileDetailsService.profileDetails$,
+    ])
+      .pipe(
+        takeUntil(this.unsubscribes$),
+        filter(([image, userProfile]) => !!image && !!userProfile)
+      )
+      .subscribe(
+        ([image, userProfile]) => {
+          this.imageUrl = image;
+          this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
+
+          if (userProfile) {
+            this.isEditMode = true;
+          }
+
+          this.showSpinner = false;
+          this.changeDetector.detectChanges();
+        },
+        () => {
+          this.showSpinner = false;
+          this.changeDetector.detectChanges();
+        }
+      );
 
     this.profileDetailsForm.valueChanges.subscribe((userProfile) => {
       this.profileDetailsService.setProfileDetails(
         userProfile as ProfileDetails
       );
     });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribes$.next();
+    this.unsubscribes$.complete();
   }
 
   public onSave(): void {

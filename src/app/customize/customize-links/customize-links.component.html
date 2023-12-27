@@ -12,7 +12,7 @@
   </div>
 
   <ng-template #linksSection>
-    <div class="lets-get-started" *ngIf="!(links$ | async)?.length; else links">
+    <div class="lets-get-started" *ngIf="!links?.length; else linksContainer">
       <div class="icon">
         <img src="../../../assets/images/illustration-empty.svg" alt="" />
       </div>
@@ -23,11 +23,11 @@
         your profiles with everyone!
       </div>
     </div>
-    <ng-template #links>
+    <ng-template #linksContainer>
       <div class="links">
         <app-add-link
           class="link"
-          *ngFor="let link of links$ | async; let i = index"
+          *ngFor="let link of links; let i = index"
           [link]="link"
           [index]="i + 1"
         ></app-add-link>

@@ -1,7 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LinksService } from 'src/app/services/links/links.service';
+import { SpinnerService } from 'src/app/services/spinner/spinner.service';
+import { SpinnerState } from 'src/models/enums/spinners';
 import { Link } from 'src/models/interfaces/link';
 
 @Component({
@@ -10,40 +18,44 @@ import { Link } from 'src/models/interfaces/link';
   styleUrls: ['./customize-links.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomizeLinksComponent implements OnInit {
+export class CustomizeLinksComponent implements OnInit, OnDestroy {
   private isEditMode: boolean = false;
-  public showSpinner: boolean = false;
 
   // TODO unsubscribe
   public isSaveDisabled: boolean = true;
-  public links$: Observable<Link[]> = this.linksService.links$.pipe(
-    tap((links) => {
-      if (!links.length) {
-        this.isSaveDisabled = true;
-      } else {
-        this.isSaveDisabled = false;
-      }
-    })
-  );
+  public links: Link[] | undefined;
+  private unsubscribes$ = new Subject<void>();
 
-  constructor(private linksService: LinksService, private api: ApiService) {}
+  constructor(
+    private linksService: LinksService,
+    private api: ApiService,
+    private changeDetector: ChangeDetectorRef,
+    private spinnerService: SpinnerService
+  ) {}
+
+  get showSpinner(): boolean {
+    return this.spinnerService.getSpinnerState(SpinnerState.links);
+  }
 
   ngOnInit() {
-    this.showSpinner = true;
-    this.api.getLinks().subscribe(
-      (result) => {
-        if (result.size) {
-          this.isEditMode = true;
-        } else {
+    this.linksService.links$
+      .pipe(takeUntil(this.unsubscribes$))
+      .subscribe((links) => {
+        if (!links.length) {
+          this.isSaveDisabled = true;
           this.isEditMode = false;
+        } else {
+          this.isSaveDisabled = false;
+          this.isEditMode = true;
         }
-        this.linksService.setLinks(result);
-      },
-      null,
-      () => {
-        this.showSpinner = false;
-      }
-    );
+        this.links = links;
+        this.changeDetector.detectChanges();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribes$.next();
+    this.unsubscribes$.complete();
   }
 
   onLinkAdd(): void {

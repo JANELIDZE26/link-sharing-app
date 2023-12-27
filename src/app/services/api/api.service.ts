@@ -5,8 +5,10 @@ import { FirebaseLinks } from 'src/models/interfaces/firebaseUser';
 import { AuthService } from '../auth/auth.service';
 import { Observable, catchError, combineLatest, map, of } from 'rxjs';
 import { Link } from 'src/models/interfaces/link';
-import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { SpinnerService } from '../spinner/spinner.service';
+import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
+import { SpinnerState } from 'src/models/enums/spinners';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +18,8 @@ export class ApiService {
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private spinnerService: SpinnerService
   ) {}
 
   public addLinks(links: FirebaseLinks): void {
@@ -55,6 +58,9 @@ export class ApiService {
           const links: FirebaseLinks = result.docs.map((doc) =>
             doc.data()
           )[0] as FirebaseLinks;
+          this.spinnerService.changeSpinnerState({
+            [SpinnerState.links]: false,
+          });
           if (!links) return new Map();
           return new Map<string, Link>(Object.entries(links.links).sort());
         })

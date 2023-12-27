@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -6,7 +6,6 @@ import { LinksService } from 'src/app/services/links/links.service';
 import { ProfileDetailsService } from 'src/app/services/profile-details/profile-details.service';
 import { Platform } from 'src/models/enums/platform';
 import { Link } from 'src/models/interfaces/link';
-import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 
 @Component({
   selector: 'app-smartphone-view',
@@ -17,7 +16,7 @@ import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SmartphoneViewComponent implements OnInit {
+export class SmartphoneViewComponent {
   public readonly PLATFORM = Platform;
   public links$: Observable<Link[]> = this.linksService.links$;
   public profileDetails$ = this.profileDetailsService.profileDetails$;
@@ -25,31 +24,8 @@ export class SmartphoneViewComponent implements OnInit {
 
   constructor(
     private linksService: LinksService,
-    private profileDetailsService: ProfileDetailsService,
-    private router: Router,
-    private apiService: ApiService
+    private profileDetailsService: ProfileDetailsService
   ) {}
-
-  ngOnInit(): void {
-    if (
-      this.router.url === '/customize/links' &&
-      !this.profileDetailsService.isProfileDetailsLoaded
-    ) {
-      this.apiService.getProfileDetails().subscribe(([image, userProfile]) => {
-        this.profileDetailsService.setProfileDetails(
-          userProfile as ProfileDetails
-        );
-        this.profileDetailsService.setImageUrl(image);
-      });
-    } else if (
-      this.router.url === '/customize/profile-details' &&
-      !this.linksService.linksAreLoaded
-    ) {
-      this.apiService.getLinks().subscribe((result) => {
-        this.linksService.setLinks(result);
-      });
-    }
-  }
 
   onOpenLink(link: string): void {
     if (this.isValidUrl(link)) {

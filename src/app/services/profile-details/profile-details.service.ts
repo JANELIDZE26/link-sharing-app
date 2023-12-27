@@ -19,12 +19,6 @@ export class ProfileDetailsService {
     return this._imageUrl$.asObservable();
   }
 
-  get isProfileDetailsLoaded(): boolean {
-    return !!this._profileDetails$.getValue() && !!this._imageUrl$.getValue();
-  }
-
-  constructor() {}
-
   public setProfileDetails(profileDetails: ProfileDetails) {
     this._profileDetails$.next(profileDetails);
   }
