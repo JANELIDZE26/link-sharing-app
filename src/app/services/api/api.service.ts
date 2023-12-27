@@ -3,15 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { FirebaseLinks } from 'src/models/interfaces/firebaseUser';
 import { AuthService } from '../auth/auth.service';
-import {
-  Observable,
-  catchError,
-  combineLatest,
-  map,
-  merge,
-  of,
-  tap,
-} from 'rxjs';
+import { Observable, catchError, combineLatest, map, of } from 'rxjs';
 import { Link } from 'src/models/interfaces/link';
 import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -20,8 +12,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   providedIn: 'root',
 })
 export class ApiService {
-  // TODO implement spinners for api events.
-
   constructor(
     private firestore: AngularFirestore,
     private storage: AngularFireStorage,
@@ -39,7 +29,7 @@ export class ApiService {
       .catch((error) => console.error(error));
   }
 
-  public editLinks(links: FirebaseLinks) {
+  public editLinks(links: FirebaseLinks): void {
     const collection = this.firestore.collection('links', (ref) =>
       ref.where('userId', '==', this.auth.userId)
     );
@@ -109,7 +99,7 @@ export class ApiService {
       });
   }
 
-  public getProfileDetails() {
+  public getProfileDetails(): Observable<[any, unknown]> {
     const storageRef = this.storage.ref(this.auth.userId!);
     const image = storageRef.getDownloadURL().pipe(catchError(() => of(null)));
 
@@ -126,7 +116,7 @@ export class ApiService {
     return combineLatest([this.getProfileDetails(), this.getLinks()]);
   }
 
-  private uploadImage(image: File) {
+  private uploadImage(image: File): void {
     const ref = this.storage.ref(this.auth.userId!);
 
     ref

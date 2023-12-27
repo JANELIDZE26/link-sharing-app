@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable, map, tap } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LinksService } from 'src/app/services/links/links.service';
@@ -8,6 +8,7 @@ import { Link } from 'src/models/interfaces/link';
   selector: 'app-customize-links',
   templateUrl: './customize-links.component.html',
   styleUrls: ['./customize-links.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomizeLinksComponent implements OnInit {
   private isEditMode: boolean = false;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Account } from 'src/models/interfaces/account';
 
@@ -6,6 +6,7 @@ import { Account } from 'src/models/interfaces/account';
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent {
   model: Account = {

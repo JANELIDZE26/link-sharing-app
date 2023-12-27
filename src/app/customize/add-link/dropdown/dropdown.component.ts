@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LinksService } from 'src/app/services/links/links.service';
 import { Platform } from 'src/models/enums/platform';
 import { Link } from 'src/models/interfaces/link';
@@ -7,6 +7,7 @@ import { Link } from 'src/models/interfaces/link';
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownComponent implements OnInit {
   @Input({ required: true }) link!: Link;

@@ -1,5 +1,5 @@
 import { LinksService } from 'src/app/services/links/links.service';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Link } from 'src/models/interfaces/link';
 import { Platform } from 'src/models/enums/platform';
 
@@ -7,6 +7,7 @@ import { Platform } from 'src/models/enums/platform';
   selector: 'app-add-link',
   templateUrl: './add-link.component.html',
   styleUrls: ['./add-link.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddLinkComponent {
   @Input({ required: true }) public index!: number;

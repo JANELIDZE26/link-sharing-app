@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-customize',
   templateUrl: './customize.component.html',
-  styleUrls: ['./customize.component.scss']
+  styleUrls: ['./customize.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomizeComponent {
-
-}
+export class CustomizeComponent {}

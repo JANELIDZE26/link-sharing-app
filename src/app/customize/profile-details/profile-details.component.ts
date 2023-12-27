@@ -1,5 +1,5 @@
 import { ApiService } from 'src/app/services/api/api.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageValidation } from 'src/models/enums/image-validation';
 import { imageValidators } from 'src/utils/image-validators/combined-validators';
@@ -17,6 +17,7 @@ enum FormControls {
   selector: 'app-profile-details',
   templateUrl: './profile-details.component.html',
   styleUrls: ['./profile-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileDetailsComponent implements OnInit {
   public profileDetailsForm!: FormGroup;

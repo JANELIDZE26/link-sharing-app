@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -15,6 +15,7 @@ import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
     './smartphone-view.component.scss',
     '../../../shared/styles/platforms.scss',
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SmartphoneViewComponent implements OnInit {
   public readonly PLATFORM = Platform;
