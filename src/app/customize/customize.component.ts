@@ -1,9 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ApiService } from '../services/api/api.service';
 import { LinksService } from '../services/links/links.service';
 import { ProfileDetailsService } from '../services/profile-details/profile-details.service';
 import { SpinnerService } from '../services/spinner/spinner.service';
 import { SpinnerState } from 'src/models/enums/spinners';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-customize',
@@ -11,19 +17,25 @@ import { SpinnerState } from 'src/models/enums/spinners';
   styleUrls: ['./customize.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CustomizeComponent implements OnInit {
+export class CustomizeComponent implements OnInit, OnDestroy {
+  private unsubscribes$ = new Subject<void>();
   constructor(
     private api: ApiService,
     private linksService: LinksService,
     private profileDetailsService: ProfileDetailsService,
     private spinnerService: SpinnerService
   ) {}
+  ngOnDestroy(): void {
+    this.unsubscribes$.next();
+    this.unsubscribes$.complete();
+  }
   ngOnInit(): void {
     this.spinnerService.changeSpinnerState({
       [SpinnerState.links]: true,
     });
     this.api
       .getPreviewDetails()
+      .pipe(takeUntil(this.unsubscribes$))
       .subscribe(([[image, profileDetails], links]) => {
         this.linksService.setLinks(links);
         this.profileDetailsService.setProfileDetails(profileDetails);

@@ -91,11 +91,13 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
         }
       );
 
-    this.profileDetailsForm.valueChanges.subscribe((userProfile) => {
-      this.profileDetailsService.setProfileDetails(
-        userProfile as ProfileDetails
-      );
-    });
+    this.profileDetailsForm.valueChanges
+      .pipe(takeUntil(this.unsubscribes$))
+      .subscribe((userProfile) => {
+        this.profileDetailsService.setProfileDetails(
+          userProfile as ProfileDetails
+        );
+      });
   }
 
   ngOnDestroy(): void {

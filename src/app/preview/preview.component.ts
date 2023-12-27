@@ -42,8 +42,6 @@ export class PreviewComponent implements OnInit {
       .pipe(
         takeUntil(this.unsubscribes$),
         tap(([image, userProfile, links]) => {
-          console.log(image, userProfile, links);
-
           if (!image && !userProfile && !links.length) {
             this.retrieveFromServer();
           }
@@ -107,21 +105,24 @@ export class PreviewComponent implements OnInit {
   }
 
   private retrieveFromServer(): void {
-    this.api.getPreviewDetails().subscribe(
-      ([[image, profileDetails], links]) => {
-        this.imageUrl = image;
-        this.profileDetails = profileDetails;
-        this.links = Array.from(links as Map<string, Link>).map(
-          ([_, link]) => link
-        );
-        this.linksService.setLinks(links);
-        this.profileDetailsService.setProfileDetails(profileDetails);
-        this.profileDetailsService.setImageUrl(image);
-      },
-      null,
-      () => {
-        this.showSpinner = false;
-      }
-    );
+    this.api
+      .getPreviewDetails()
+      .pipe(takeUntil(this.unsubscribes$))
+      .subscribe(
+        ([[image, profileDetails], links]) => {
+          this.imageUrl = image;
+          this.profileDetails = profileDetails;
+          this.links = Array.from(links as Map<string, Link>).map(
+            ([_, link]) => link
+          );
+          this.linksService.setLinks(links);
+          this.profileDetailsService.setProfileDetails(profileDetails);
+          this.profileDetailsService.setImageUrl(image);
+        },
+        null,
+        () => {
+          this.showSpinner = false;
+        }
+      );
   }
 }

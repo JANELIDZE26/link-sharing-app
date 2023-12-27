@@ -4,17 +4,19 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
+  OnDestroy,
   ViewChild,
 } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-svg-component',
   templateUrl: './svg-component.component.html',
   styleUrls: ['./svg-component.component.scss'],
 })
-export class SvgComponentComponent {
+export class SvgComponentComponent implements OnDestroy {
   // TODO try to fetch data always in same order.
+  private unsubscribes$ = new Subject<void>();
 
   @Input({ required: true }) public set iconPath(iconPath: string) {
     this.loadSvg(iconPath);
@@ -31,12 +33,17 @@ export class SvgComponentComponent {
     private http: HttpClient,
     private changeDetectorRef: ChangeDetectorRef
   ) {}
+  ngOnDestroy(): void {
+    this.unsubscribes$.next();
+    this.unsubscribes$.complete();
+  }
 
   private loadSvg(iconPath: string): void {
     this.http
       .get(iconPath, {
         responseType: 'text',
       })
+      .pipe(takeUntil(this.unsubscribes$))
       .subscribe((data) => {
         this.svg = data;
         this.changeDetectorRef.detectChanges();
