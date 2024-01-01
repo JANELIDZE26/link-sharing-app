@@ -77,7 +77,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
         ([image, userProfile]) => {
           this.imageUrl = image;
           this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
-
+          console.log('[FROM ZIP IMAGE]: ', image);
           if (userProfile) {
             this.isEditMode = true;
           }
@@ -97,6 +97,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
         this.profileDetailsService.setProfileDetails(
           userProfile as ProfileDetails
         );
+        console.log(userProfile);
       });
   }
 
@@ -121,11 +122,11 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
 
   public patchImage(file: File): void {
     const fs = new FileReader();
-    this.profileDetailsForm.patchValue({
-      [FormControls.profileImage]: file,
-    });
 
     if (file) {
+      this.profileDetailsForm.patchValue({
+        [FormControls.profileImage]: file,
+      });
       fs.onload = (event) => {
         this.imageUrl = event.target!.result;
         this.profileDetailsService.setImageUrl(this.imageUrl);
