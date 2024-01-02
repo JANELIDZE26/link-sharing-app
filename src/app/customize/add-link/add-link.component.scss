@@ -20,21 +20,11 @@
       font-weight: 700;
       display: flex;
       gap: 0.5rem;
-
-      .lines {
-        display: flex;
-        width: 1.5rem;
-        height: 2rem;
-
-        img {
-          width: 100%;
-          cursor: pointer;
-        }
-      }
     }
 
     .remove {
       cursor: pointer;
+      user-select: none;
     }
   }
 

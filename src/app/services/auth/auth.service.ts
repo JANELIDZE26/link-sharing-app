@@ -55,9 +55,6 @@ export class AuthService {
         this.setListener(expirationDate);
         this.setJwtToken(user as User, expirationDate);
         this.router.navigateByUrl('customize');
-      })
-      .catch((error) => {
-        console.error(error);
       });
   }
 

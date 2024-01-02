@@ -1,5 +1,9 @@
 @import "../../../shared/styles/colors.scss";
 
+* {
+  transition: all 0.3s;
+}
+
 .login-container {
   .heading {
     margin-bottom: 5rem;
@@ -28,6 +32,18 @@
     text-align: center;
     font-size: 1.5rem;
     cursor: pointer;
+    outline: none;
+    border: none;
+    transition: all 0.2s;
+
+    &.disabled {
+      background: $lightPurple;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(.disabled) {
+      background: $purpleHover;
+    }
   }
 
   .footer {
@@ -84,31 +100,34 @@
       width: 100%;
     }
 
-    .validation-message {
-      color: $red;
-      font-size: 1.2rem;
-      font-weight: 400;
-    }
-
     &:focus-within {
       border-color: $purple;
       box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
     }
+
+    &.warning {
+      border-color: $red;
+
+      .input {
+        color: $red;
+        font-size: 1.2rem;
+        font-weight: 400;
+      }
+    }
   }
 }
 
-.form-group.validationError {
+.form.validationError {
   .input-container {
     padding-right: 1rem;
     border-color: $red;
+  }
 
-    input {
-      width: 50%;
-    }
-
-    .validation-message {
-      margin-left: 2rem;
-    }
+  .validation-message {
+    color: $red;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
   }
 
   label {

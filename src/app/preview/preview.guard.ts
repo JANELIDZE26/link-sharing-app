@@ -11,6 +11,7 @@ export const previewGuard: CanActivateFn = () => {
 
   return api.getPreviewDetails().pipe(
     map(([[image, profileDetails], links]) => {
+      console.log(image, profileDetails, links);
       if (!image || !profileDetails) {
         router.navigateByUrl('customize/profile-details').then(() => {
           hotToast.show('Please add profile details!', {
@@ -21,7 +22,7 @@ export const previewGuard: CanActivateFn = () => {
         return false;
       }
 
-      if (!links) {
+      if (!links.size) {
         router.navigateByUrl('customize/links').then(() => {
           hotToast.show('Please add links!', {
             position: 'bottom-center',

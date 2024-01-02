@@ -28,6 +28,18 @@
     text-align: center;
     font-size: 1.5rem;
     cursor: pointer;
+    outline: none;
+    border: none;
+    transition: all 0.2s;
+
+    &.disabled {
+      background: $lightPurple;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(.disabled) {
+      background: $purpleHover;
+    }
   }
 
   .password-requirement {
@@ -103,18 +115,17 @@
   }
 }
 
-.form-group.validationError {
+.form.validationError {
   .input-container {
     padding-right: 1rem;
     border-color: $red;
+  }
 
-    input {
-      width: 50%;
-    }
-
-    .validation-message {
-      margin-left: 2rem;
-    }
+  .validation-message {
+    color: $red;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
   }
 
   label {

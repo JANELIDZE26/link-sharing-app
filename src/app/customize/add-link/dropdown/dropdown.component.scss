@@ -76,4 +76,12 @@
       }
     }
   }
+  .arrow-icon {
+    transition: all 0.2s;
+    user-select: none;
+
+    &.isOpened {
+      transform: rotate(180deg);
+    }
+  }
 }

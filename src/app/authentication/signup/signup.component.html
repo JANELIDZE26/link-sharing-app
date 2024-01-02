@@ -4,7 +4,11 @@
     <div class="description">Let’s get you started sharing your links!</div>
   </div>
 
-  <form #heroForm="ngForm">
+  <form
+    #signupForm="ngForm"
+    class="form"
+    [class.validationError]="userAlreadyExists"
+  >
     <div class="form-group">
       <label for="email">Email address</label>
       <div class="input-container">
@@ -23,7 +27,7 @@
         />
       </div>
     </div>
-    <!-- TODO set validations -->
+
     <div class="form-group" [class.validationError]="false">
       <label for="password">Password</label>
       <div class="input-container">
@@ -33,14 +37,15 @@
           alt="email icon"
         />
         <input
+          #password
           id="password"
           type="password"
           required
+          minlength="6"
           name="password"
-          placeholder="At least 8 characters"
+          placeholder="At least 6 characters"
           [(ngModel)]="model.password"
         />
-        <div class="validation-message" *ngIf="false">Can't be empty</div>
       </div>
     </div>
     <div class="form-group" [class.validationError]="false">
@@ -52,18 +57,31 @@
           alt="email icon"
         />
         <input
+          #confirmPassword
           id="confirmPassword"
           type="password"
           required
           name="confirmPassword"
-          placeholder="At least 8 characters"
+          placeholder="At least 6 characters"
           [(ngModel)]="model.confirmPassword"
         />
-        <div class="validation-message" *ngIf="false">Can't be empty</div>
       </div>
     </div>
-    <div class="password-requirement">Password must contains at least 8 characters</div>
-    <div class="signup-button" (click)="onSignUp()">Create new account</div>
+    <div class="password-requirement">
+      Password must contains at least 6 characters
+    </div>
+    <button
+      [disabled]="
+        confirmPassword.value !== password.value || signupForm.invalid
+      "
+      [class.disabled]="
+        confirmPassword.value !== password.value || signupForm.invalid
+      "
+      class="signup-button"
+      (click)="onSignUp()"
+    >
+      Create new account
+    </button>
   </form>
 
   <div class="footer">
