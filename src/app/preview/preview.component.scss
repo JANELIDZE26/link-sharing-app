@@ -69,6 +69,12 @@
         color: $purple;
       }
     }
+
+    @media (max-width: 375px) {
+      div {
+        font-size: 1.2rem;
+      }
+    }
   }
 
   @media (min-width: 560px) {
@@ -90,10 +96,12 @@
 }
 
 .details {
-  width: 37.5rem;
+  width: 30.5rem;
+  height: 54.5rem;
   margin: auto;
 
   @media (min-width: 560px) {
+    width: 37.5rem;
     background-color: $white;
     border-radius: 2.4rem;
     padding: 0 1.6rem 1rem 1.6rem;
@@ -113,11 +121,15 @@
     width: 10rem;
     height: 10rem;
 
-    img {
+    & > * {
       width: 100%;
       height: 100%;
       border-radius: 10rem;
       border: 4px solid $purple;
+    }
+
+    .image-placeholder {
+      background: $borderColor;
     }
   }
 
@@ -129,10 +141,22 @@
     white-space: nowrap;
   }
 
+  .firstNamePlaceholder {
+    font-size: 4.2rem;
+    font-weight: 700;
+    color: $darkGray;
+  }
+
   .email {
     font-size: 1.6rem;
     font-weight: 400;
     color: $gray;
+  }
+
+  .emailPlaceholder {
+    font-size: 3.2rem;
+    font-weight: 400;
+    color: $darkGray;
   }
 
   @media (min-width: 560px) {
@@ -176,6 +200,21 @@
   }
 }
 
+.details .linksPlaceholder {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .line {
+    border: 2px dotted $darkGray;
+    width: 20rem;
+    height: 2rem;
+    border-radius: 10rem;
+    margin-bottom: 2rem;
+  }
+}
+
 .icon {
   width: 2rem;
   height: 2rem;
@@ -205,31 +244,4 @@
   font-family: Instrument Sans;
   font-size: 1.6rem;
   cursor: pointer;
-}
-
-.btn {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 3rem;
-
-  .logout {
-    width: 15rem;
-    margin-top: 3rem;
-
-    &:hover {
-      background: $white;
-      color: $purple;
-      transition: all 0.2s;
-    }
-  }
-
-  @media (max-width: 578px) {
-    padding: 3rem 0;
-    justify-content: center;
-
-    .logout {
-      width: 80%;
-    }
-  }
 }

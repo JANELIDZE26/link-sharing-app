@@ -16,19 +16,43 @@
   <div class="details">
     <div class="profile">
       <div class="image">
-        <img [src]="imageUrl" alt="profile image" />
+        <img
+          [src]="imageUrl"
+          alt="profile image"
+          *ngIf="imageUrl; else imagePlaceholder"
+        />
+        <ng-template #imagePlaceholder>
+          <div class="image-placeholder"></div>
+        </ng-template>
       </div>
-      <div class="firstName">
+      <div
+        class="firstName"
+        *ngIf="
+          profileDetails && profileDetails.firstName;
+          else firstNamePlaceholder
+        "
+      >
         {{
           profileDetails!.firstName
             | shrinkString : 15 : true : profileDetails!.lastName
         }}
       </div>
-      <div class="email">
+      <ng-template #firstNamePlaceholder>
+        <div class="firstNamePlaceholder">...</div>
+      </ng-template>
+
+      <div
+        class="email"
+        *ngIf="profileDetails && profileDetails.email; else emailPlaceholder"
+      >
         {{ profileDetails!.email | shrinkString : 25 : false }}
       </div>
+      <ng-template #emailPlaceholder>
+        <div class="emailPlaceholder">...</div>
+      </ng-template>
     </div>
-    <div class="links">
+
+    <div class="links" *ngIf="links && links.length; else linksPlaceholder">
       <div
         class="link {{ link.platform }}"
         *ngFor="let link of links"
@@ -56,12 +80,18 @@
         </div>
       </div>
     </div>
+    <ng-template #linksPlaceholder>
+      <div class="linksPlaceholder">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </ng-template>
   </div>
 </ng-template>
-
-<div class="btn">
-  <button (click)="onLogout()" class="button logout">Log out</button>
-</div>
 
 <ng-template #toastrTemplate>
   <div class="hotToastContainer">

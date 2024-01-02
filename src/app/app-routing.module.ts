@@ -8,7 +8,6 @@ import { CustomizeLinksComponent } from './customize/customize-links/customize-l
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { authGuard } from './authentication/auth.guard';
 import { ProfileDetailsComponent } from './customize/profile-details/profile-details.component';
-import { previewGuard } from './preview/preview.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -40,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'preview',
-    canActivate: [authGuard, previewGuard],
+    canActivate: [authGuard],
     component: PreviewComponent,
   },
 ];

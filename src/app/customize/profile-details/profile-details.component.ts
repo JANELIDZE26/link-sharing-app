@@ -66,14 +66,13 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     this.showSpinner = true;
     this.profileDetailsForm = this.buildEmptyForm();
     this.profileDetailsService.profileDetails$
-      .pipe(
-        take(2),
-        filter((userProfile) => !!userProfile)
-      )
+      .pipe(take(2))
       .subscribe((userProfile) => {
-        this.isEditMode = true;
-        this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
-        this.changeDetector.detectChanges();
+        if (userProfile) {
+          this.isEditMode = true;
+          this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
+          this.changeDetector.detectChanges();
+        }
         this.showSpinner = false;
       });
 

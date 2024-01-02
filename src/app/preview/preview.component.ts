@@ -42,13 +42,14 @@ export class PreviewComponent implements OnInit {
       .pipe(
         takeUntil(this.unsubscribes$),
         tap(([image, userProfile, links]) => {
+          console.log(image, userProfile, links);
           if (!image && !userProfile && !links.length) {
             this.retrieveFromServer();
           }
         }),
         filter(
           ([image, userProfile, links]) =>
-            !!image && !!userProfile && !!links.length
+            (!!image || !!userProfile) || !!links.length
         )
       )
       .subscribe(
