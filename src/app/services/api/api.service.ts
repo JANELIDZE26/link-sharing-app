@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { FirebaseLinks } from 'src/models/interfaces/firebaseUser';
 import { AuthService } from '../auth/auth.service';
-import { Observable, catchError, combineLatest, map, of } from 'rxjs';
+import { Observable, catchError, combineLatest, map, of, tap } from 'rxjs';
 import { Link } from 'src/models/interfaces/link';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { SpinnerService } from '../spinner/spinner.service';
@@ -58,7 +58,7 @@ export class ApiService {
           const links: FirebaseLinks = result.docs.map((doc) =>
             doc.data()
           )[0] as FirebaseLinks;
-          this.spinnerService.changeSpinnerState({
+          this.spinnerService.setSpinnerState({
             [SpinnerState.links]: false,
           });
           if (!links) return new Map();
@@ -115,9 +115,50 @@ export class ApiService {
       )
       .get()
       .pipe(map((result) => result.docs.map((doc) => doc.data())[0]));
-    return combineLatest([image, collection]);
+    return combineLatest([image, collection]).pipe(
+      tap(() => {
+        this.spinnerService.setSpinnerState({
+          [SpinnerState.profileDetails]: false,
+          [SpinnerState.imageUrl]: false,
+        });
+      })
+    );
   }
 
+  public getDocumentIdByUserId(
+    callBack: Function,
+    collectionType: 'links' | 'profile-details'
+  ): void {
+    this.firestore
+      .collection(collectionType, (ref) =>
+        ref.where('userId', '==', this.auth.userId)
+      )
+      .get()
+      .subscribe((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          callBack(doc.id);
+        });
+      });
+  }
+
+  public async deleteUserAccount(
+    profileDetailsDocumentId: string,
+    linksDocumentId: string
+  ): Promise<void> {
+    try {
+      await this.firestore
+        .collection('profile-details')
+        .doc(profileDetailsDocumentId)
+        .delete();
+      console.log('profile details successfully deleted!');
+
+      await this.firestore.collection('links').doc(linksDocumentId).delete();
+
+      console.log('links successfully deleted!');
+    } catch (error) {
+      console.error(error);
+    }
+  }
   public getPreviewDetails(): Observable<any> {
     return combineLatest([this.getProfileDetails(), this.getLinks()]);
   }

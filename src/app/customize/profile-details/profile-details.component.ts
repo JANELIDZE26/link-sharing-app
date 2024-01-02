@@ -12,6 +12,8 @@ import { imageValidators } from 'src/utils/image-validators/combined-validators'
 import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 import { ProfileDetailsService } from 'src/app/services/profile-details/profile-details.service';
 import { Subject, filter, take, takeUntil } from 'rxjs';
+import { SpinnerService } from 'src/app/services/spinner/spinner.service';
+import { SpinnerState } from 'src/models/enums/spinners';
 
 enum FormControls {
   firstName = 'firstName',
@@ -31,8 +33,6 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   public imageUrl: string | ArrayBuffer | null | undefined;
   public isDragOver: boolean = false;
   public isSaveDisabled: boolean = true;
-  public isEditMode: boolean = false;
-  public showSpinner: boolean = false;
   private unsubscribes$ = new Subject<void>();
 
   get FormControls() {
@@ -47,11 +47,24 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     return this.profileDetailsForm.valid;
   }
 
+  get isEditMode() {
+    return !!this.profileDetailsService.profileDetailsDocumentId;
+  }
+
+  get showImageSpinner(): boolean {
+    return this.spinnerService.getSpinnerState(SpinnerState.imageUrl);
+  }
+
+  get showProfileDetailsSpinner(): boolean {
+    return this.spinnerService.getSpinnerState(SpinnerState.imageUrl);
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private profileDetailsService: ProfileDetailsService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private spinnerService: SpinnerService
   ) {}
 
   public getImageValidator(validatorType: ImageValidation): number | null {
@@ -63,17 +76,12 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit() {
-    this.showSpinner = true;
     this.profileDetailsForm = this.buildEmptyForm();
     this.profileDetailsService.profileDetails$
-      .pipe(take(2))
+      .pipe(takeUntil(this.unsubscribes$), take(2))
       .subscribe((userProfile) => {
-        if (userProfile) {
-          this.isEditMode = true;
-          this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
-          this.changeDetector.detectChanges();
-        }
-        this.showSpinner = false;
+        this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
+        this.changeDetector.detectChanges();
       });
 
     this.profileDetailsService.imageUrl$

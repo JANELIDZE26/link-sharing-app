@@ -20,7 +20,7 @@
       <div class="profile-picture-header">Profile picture</div>
 
       <ng-container
-        *ngTemplateOutlet="showSpinner ? spinner : imageTemplate"
+        *ngTemplateOutlet="showImageSpinner ? spinner : imageTemplate"
       ></ng-container>
       <ng-template #imageTemplate>
         <div
@@ -88,7 +88,7 @@
 
     <div class="inputs">
       <ng-container
-        *ngTemplateOutlet="showSpinner ? spinner : inputs"
+        *ngTemplateOutlet="showProfileDetailsSpinner ? spinner : inputs"
       ></ng-container>
       <ng-template #inputs>
         <div class="input-container">

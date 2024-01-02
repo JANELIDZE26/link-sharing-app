@@ -6,6 +6,7 @@ import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
   providedIn: 'root',
 })
 export class ProfileDetailsService {
+  public profileDetailsDocumentId: string | null = null;
   private _profileDetails$ = new BehaviorSubject<ProfileDetails | null>(null);
   private _imageUrl$ = new BehaviorSubject<
     string | ArrayBuffer | null | undefined

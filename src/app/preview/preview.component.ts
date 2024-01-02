@@ -67,6 +67,18 @@ export class PreviewComponent implements OnInit {
       this.modalConfiguration
     );
 
+    if (!this.profileDetailsService.profileDetailsDocumentId) {
+      this.api.getDocumentIdByUserId((documentId: string) => {
+        this.profileDetailsService.profileDetailsDocumentId = documentId;
+      }, 'profile-details');
+    }
+
+    if (!this.linksService.linksDocumentId) {
+      this.api.getDocumentIdByUserId((documentId: string) => {
+        this.linksService.linksDocumentId = documentId;
+      }, 'links');
+    }
+
     this.showSpinner = true;
     zip([
       this.profileDetailsService.imageUrl$,
@@ -146,7 +158,10 @@ export class PreviewComponent implements OnInit {
   }
 
   deleteProfile(): void {
-    this.api.deleteProfile(this.profileDetailsService.profileDetailsDocumentId!);
+    this.api.deleteUserAccount(
+      this.profileDetailsService.profileDetailsDocumentId!,
+      this.linksService.linksDocumentId!
+    );
     this.modalService.getModal('deleteProfile').close();
   }
 

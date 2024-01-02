@@ -30,15 +30,27 @@ export class CustomizeComponent implements OnInit, OnDestroy {
     this.unsubscribes$.complete();
   }
   ngOnInit(): void {
-    this.spinnerService.changeSpinnerState({
+    this.spinnerService.setSpinnerState({
       [SpinnerState.links]: true,
+      [SpinnerState.profileDetails]: true,
+      [SpinnerState.imageUrl]: true,
     });
+
+    this.api.getDocumentIdByUserId((documentId: string) => {
+      this.profileDetailsService.profileDetailsDocumentId = documentId;
+    }, 'profile-details');
+    this.api.getDocumentIdByUserId((documentId: string) => {
+      this.linksService.linksDocumentId = documentId;
+    }, 'links');
+
     this.api
       .getPreviewDetails()
       .pipe(takeUntil(this.unsubscribes$))
       .subscribe(([[image, profileDetails], links]) => {
         this.linksService.setLinks(links);
+
         this.profileDetailsService.setProfileDetails(profileDetails);
+
         this.profileDetailsService.setImageUrl(image);
       });
   }

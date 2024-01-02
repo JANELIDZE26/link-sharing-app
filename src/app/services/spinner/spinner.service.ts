@@ -9,7 +9,7 @@ export class SpinnerService {
 
   static SPINNER_STATE: any;
 
-  changeSpinnerState(state: { [key: string]: boolean }) {
+  setSpinnerState(state: { [key: string]: boolean }) {
     Object.entries(state).forEach(([key, value]) => {
       this.spinners[key] = value;
     });
