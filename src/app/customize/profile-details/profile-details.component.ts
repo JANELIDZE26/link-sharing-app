@@ -11,7 +11,7 @@ import { ImageValidation } from 'src/models/enums/image-validation';
 import { imageValidators } from 'src/utils/image-validators/combined-validators';
 import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 import { ProfileDetailsService } from 'src/app/services/profile-details/profile-details.service';
-import { Subject, filter, takeUntil, zip } from 'rxjs';
+import { Subject, filter, take, takeUntil } from 'rxjs';
 
 enum FormControls {
   firstName = 'firstName',
@@ -65,31 +65,27 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.showSpinner = true;
     this.profileDetailsForm = this.buildEmptyForm();
-    zip([
-      this.profileDetailsService.imageUrl$,
-      this.profileDetailsService.profileDetails$,
-    ])
+    this.profileDetailsService.profileDetails$
+      .pipe(
+        take(2),
+        filter((userProfile) => !!userProfile)
+      )
+      .subscribe((userProfile) => {
+        this.isEditMode = true;
+        this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
+        this.changeDetector.detectChanges();
+        this.showSpinner = false;
+      });
+
+    this.profileDetailsService.imageUrl$
       .pipe(
         takeUntil(this.unsubscribes$),
-        filter(([image, userProfile]) => !!image && !!userProfile)
+        filter((image) => !!image)
       )
-      .subscribe(
-        ([image, userProfile]) => {
-          this.imageUrl = image;
-          this.profileDetailsForm.patchValue(userProfile as ProfileDetails);
-          console.log('[FROM ZIP IMAGE]: ', image);
-          if (userProfile) {
-            this.isEditMode = true;
-          }
-
-          this.showSpinner = false;
-          this.changeDetector.detectChanges();
-        },
-        () => {
-          this.showSpinner = false;
-          this.changeDetector.detectChanges();
-        }
-      );
+      .subscribe((image) => {
+        this.imageUrl = image;
+        this.changeDetector.detectChanges();
+      });
 
     this.profileDetailsForm.valueChanges
       .pipe(takeUntil(this.unsubscribes$))
@@ -97,7 +93,12 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
         this.profileDetailsService.setProfileDetails(
           userProfile as ProfileDetails
         );
-        console.log(userProfile);
+      });
+
+    this.profileDetailsForm.statusChanges
+      .pipe(takeUntil(this.unsubscribes$))
+      .subscribe(() => {
+        this.changeDetector.detectChanges();
       });
   }
 
@@ -124,12 +125,13 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     const fs = new FileReader();
 
     if (file) {
-      this.profileDetailsForm.patchValue({
-        [FormControls.profileImage]: file,
-      });
       fs.onload = (event) => {
         this.imageUrl = event.target!.result;
         this.profileDetailsService.setImageUrl(this.imageUrl);
+        this.profileDetailsForm.patchValue({
+          [FormControls.profileImage]: file,
+        });
+        this.changeDetector.detectChanges();
       };
       fs.readAsDataURL(file);
     } else {
