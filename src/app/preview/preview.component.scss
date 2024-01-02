@@ -113,14 +113,24 @@
 
 .details .logout {
   position: absolute;
-  position: absolute;
   top: 2rem;
   right: 2rem;
   transform: rotate(180deg);
   cursor: pointer;
 
   &:hover {
-    transform: rotate(180deg) scale(1.5);
+    transform: rotate(180deg) scale(1.2);
+  }
+}
+
+.details .delete-profile {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  cursor: pointer;
+  
+  &:hover {
+    transform: scale(1.2);
   }
 }
 
@@ -260,7 +270,7 @@
   cursor: pointer;
 }
 
-.logoutModal {
+.modalContent {
   height: 20rem;
   position: relative;
 
@@ -277,7 +287,7 @@
     width: 45%;
     outline: none;
 
-    &.logout {
+    &.actionButton {
       background-color: $red;
       border-color: $red;
 

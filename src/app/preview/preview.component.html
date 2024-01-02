@@ -91,9 +91,17 @@
       </div>
     </ng-template>
 
-    <div class="logout" (click)="onLogout()">
+    <div class="logout" (click)="onLogoutModal()">
       <app-svg-component
         [iconPath]="'../../assets/images/logout.svg'"
+        [dimensions]="{ width: '3rem', height: '3rem' }"
+      ></app-svg-component>
+    </div>
+
+    <div class="delete-profile" (click)="onOpenDeleteProfileModal()">
+      <app-svg-component
+        [iconPath]="'../../assets/images/icon-trash.svg'"
+        [dimensions]="{ width: '3rem', height: '3rem' }"
       ></app-svg-component>
     </div>
   </div>
@@ -114,18 +122,25 @@
 </ng-template>
 <div class="details-background"></div>
 <div class="header-background"></div>
+
 <ng-template #logoutModal>
-  <div class="logoutModal">
+  <div class="modalContent">
     <h1>Are you sure you want to log out?</h1>
     <div class="buttons">
-      <button
-        class="cancel button"
-        (click)="onCancelModal()"
-      >Cancel</button>
-      <button
-        class="logout button"
-        (click)="logOut()"
-      >Logout</button>
+      <button class="cancel button" (click)="onCancelModal()">Cancel</button>
+      <button class="actionButton button" (click)="logOut()">Logout</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteProfileModal>
+  <div class="modalContent">
+    <h1>Are you sure you want to delete your profile?</h1>
+    <div class="buttons">
+      <button class="cancel button" (click)="onCancelModal()">Cancel</button>
+      <button class="actionButton button" (click)="deleteProfile()">
+        Delete
+      </button>
     </div>
   </div>
 </ng-template>

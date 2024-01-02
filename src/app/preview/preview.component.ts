@@ -29,7 +29,16 @@ export class PreviewComponent implements OnInit {
   public showSpinner: boolean = false;
   public readonly PLATFORM = Platform;
   private unsubscribes$ = new Subject<void>();
-  @ViewChild('logoutModal', { static: true }) logout!: TemplateRef<any>;
+  private modalConfiguration = {
+    backdrop: true,
+    target: 'body',
+    dismissable: true,
+    closable: false,
+  };
+  @ViewChild('logoutModal', { static: true }) logoutRef!: TemplateRef<any>;
+
+  @ViewChild('deleteProfileModal', { static: true })
+  deleteProfileRef!: TemplateRef<any>;
 
   constructor(
     private api: ApiService,
@@ -44,12 +53,19 @@ export class PreviewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.modalService.create('logout', this.logout, this.viewcontainer, {
-      backdrop: true,
-      target: 'body',
-      dismissable: true,
-      closable: false,
-    });
+    this.modalService.create(
+      'logout',
+      this.logoutRef,
+      this.viewcontainer,
+      this.modalConfiguration
+    );
+
+    this.modalService.create(
+      'deleteProfile',
+      this.deleteProfileRef,
+      this.viewcontainer,
+      this.modalConfiguration
+    );
 
     this.showSpinner = true;
     zip([
@@ -60,7 +76,6 @@ export class PreviewComponent implements OnInit {
       .pipe(
         takeUntil(this.unsubscribes$),
         tap(([image, userProfile, links]) => {
-          console.log(image, userProfile, links);
           if (!image && !userProfile && !links.length) {
             this.retrieveFromServer();
           }
@@ -93,12 +108,6 @@ export class PreviewComponent implements OnInit {
     }
   }
 
-  private isValidUrl(url: string): boolean {
-    // URL validation logic (same as above)
-    const urlPattern = /^https?:\/\/[^\s$.?#].[^\s]*$/;
-    return urlPattern.test(url);
-  }
-
   onCopyToClipboard(element: any) {
     const url = window.location.href; // Gets the full URL
     navigator.clipboard.writeText(url).then(
@@ -118,17 +127,27 @@ export class PreviewComponent implements OnInit {
     });
   }
 
-  onLogout(): void {
+  onLogoutModal(): void {
     this.modalService.getModal('logout').open(true);
   }
 
   onCancelModal() {
     this.modalService.getModal('logout').close();
+    this.modalService.getModal('deleteProfile').close();
   }
 
-  public logOut(): void {
+  logOut(): void {
     this.authService.logOut();
     this.router.navigateByUrl('/auth');
+  }
+
+  onOpenDeleteProfileModal(): void {
+    this.modalService.getModal('deleteProfile').open();
+  }
+
+  deleteProfile(): void {
+    this.api.deleteProfile(this.profileDetailsService.profileDetailsDocumentId!);
+    this.modalService.getModal('deleteProfile').close();
   }
 
   private retrieveFromServer(): void {
@@ -151,5 +170,11 @@ export class PreviewComponent implements OnInit {
           this.showSpinner = false;
         }
       );
+  }
+
+  private isValidUrl(url: string): boolean {
+    // URL validation logic (same as above)
+    const urlPattern = /^https?:\/\/[^\s$.?#].[^\s]*$/;
+    return urlPattern.test(url);
   }
 }
