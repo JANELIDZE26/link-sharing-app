@@ -99,6 +99,7 @@
   width: 30.5rem;
   height: 54.5rem;
   margin: auto;
+  position: relative;
 
   @media (min-width: 560px) {
     width: 37.5rem;
@@ -107,6 +108,19 @@
     padding: 0 1.6rem 1rem 1.6rem;
     box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.1);
     margin-top: 15rem;
+  }
+}
+
+.details .logout {
+  position: absolute;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  transform: rotate(180deg);
+  cursor: pointer;
+
+  &:hover {
+    transform: rotate(180deg) scale(1.5);
   }
 }
 
@@ -244,4 +258,38 @@
   font-family: Instrument Sans;
   font-size: 1.6rem;
   cursor: pointer;
+}
+
+.logoutModal {
+  height: 20rem;
+  position: relative;
+
+  .buttons {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    justify-content: space-between;
+    width: 25rem;
+  }
+
+  .button {
+    width: 45%;
+    outline: none;
+
+    &.logout {
+      background-color: $red;
+      border-color: $red;
+
+      &:hover {
+        color: $red;
+        background-color: $white;
+      }
+    }
+
+    &.cancel:hover {
+      background-color: $white;
+      color: $purple;
+    }
+  }
 }

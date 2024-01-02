@@ -90,6 +90,12 @@
         <div class="line"></div>
       </div>
     </ng-template>
+
+    <div class="logout" (click)="onLogout()">
+      <app-svg-component
+        [iconPath]="'../../assets/images/logout.svg'"
+      ></app-svg-component>
+    </div>
   </div>
 </ng-template>
 
@@ -108,3 +114,18 @@
 </ng-template>
 <div class="details-background"></div>
 <div class="header-background"></div>
+<ng-template #logoutModal>
+  <div class="logoutModal">
+    <h1>Are you sure you want to log out?</h1>
+    <div class="buttons">
+      <button
+        class="cancel button"
+        (click)="onCancelModal()"
+      >Cancel</button>
+      <button
+        class="logout button"
+        (click)="logOut()"
+      >Logout</button>
+    </div>
+  </div>
+</ng-template>

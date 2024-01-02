@@ -29,6 +29,7 @@ import { provideHotToastConfig } from '@ngneat/hot-toast';
 import { SpinnerComponent } from 'src/shared/components/spinner/spinner.component';
 import { SmartphoneViewComponent } from './customize/smartphone-view/smartphone-view.component';
 import { ShrinkString } from './pipes/shrink-string.pipe';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ShrinkString } from './pipes/shrink-string.pipe';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    NgxSmartModalModule.forRoot(),
     HttpClientModule,
   ],
   providers: [provideHotToastConfig({})],

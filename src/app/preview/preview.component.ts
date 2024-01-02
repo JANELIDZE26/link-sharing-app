@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { ApiService } from '../services/api/api.service';
 import { ProfileDetails } from 'src/models/interfaces/profile-details-form';
 import { Link } from 'src/models/interfaces/link';
@@ -9,6 +16,7 @@ import { ProfileDetailsService } from '../services/profile-details/profile-detai
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { zip, takeUntil, filter, Subject, tap } from 'rxjs';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
@@ -21,6 +29,7 @@ export class PreviewComponent implements OnInit {
   public showSpinner: boolean = false;
   public readonly PLATFORM = Platform;
   private unsubscribes$ = new Subject<void>();
+  @ViewChild('logoutModal', { static: true }) logout!: TemplateRef<any>;
 
   constructor(
     private api: ApiService,
@@ -29,10 +38,19 @@ export class PreviewComponent implements OnInit {
     private profileDetailsService: ProfileDetailsService,
     private authService: AuthService,
     private router: Router,
-    private changeDetector: ChangeDetectorRef
+    private modalService: NgxSmartModalService,
+    private changeDetector: ChangeDetectorRef,
+    private viewcontainer: ViewContainerRef
   ) {}
 
   ngOnInit(): void {
+    this.modalService.create('logout', this.logout, this.viewcontainer, {
+      backdrop: true,
+      target: 'body',
+      dismissable: true,
+      closable: false,
+    });
+
     this.showSpinner = true;
     zip([
       this.profileDetailsService.imageUrl$,
@@ -49,7 +67,7 @@ export class PreviewComponent implements OnInit {
         }),
         filter(
           ([image, userProfile, links]) =>
-            (!!image || !!userProfile) || !!links.length
+            !!image || !!userProfile || !!links.length
         )
       )
       .subscribe(
@@ -101,6 +119,14 @@ export class PreviewComponent implements OnInit {
   }
 
   onLogout(): void {
+    this.modalService.getModal('logout').open(true);
+  }
+
+  onCancelModal() {
+    this.modalService.getModal('logout').close();
+  }
+
+  public logOut(): void {
     this.authService.logOut();
     this.router.navigateByUrl('/auth');
   }
