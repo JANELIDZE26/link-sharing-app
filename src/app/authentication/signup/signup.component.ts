@@ -2,7 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnInit,
 } from '@angular/core';
+import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Account } from 'src/models/interfaces/account';
 
@@ -12,7 +14,7 @@ import { Account } from 'src/models/interfaces/account';
   styleUrls: ['./signup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   userAlreadyExists: boolean = false;
   model: Account = {
     email: '',
@@ -22,8 +24,16 @@ export class SignupComponent {
 
   constructor(
     private api: AuthService,
-    private changeDetection: ChangeDetectorRef
+    private changeDetection: ChangeDetectorRef,
+    private hotToast: HotToastService
   ) {}
+
+  ngOnInit(): void {
+    this.hotToast.show("Don't Use Real Credentials!", {
+      position: 'bottom-center',
+      className: 'toastrClass warning',
+    });
+  }
 
   public onSignUp(): void {
     if (this.model.password !== this.model.confirmPassword) {

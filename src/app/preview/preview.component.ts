@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   OnInit,
   TemplateRef,
@@ -15,7 +14,7 @@ import { LinksService } from '../services/links/links.service';
 import { ProfileDetailsService } from '../services/profile-details/profile-details.service';
 import { AuthService } from '../services/auth/auth.service';
 import { Router } from '@angular/router';
-import { zip, takeUntil, filter, Subject, tap } from 'rxjs';
+import { takeUntil, Subject } from 'rxjs';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 @Component({
   selector: 'app-preview',
@@ -48,7 +47,6 @@ export class PreviewComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private modalService: NgxSmartModalService,
-    private changeDetector: ChangeDetectorRef,
     private viewcontainer: ViewContainerRef
   ) {}
 
@@ -81,30 +79,6 @@ export class PreviewComponent implements OnInit {
 
     this.showSpinner = true;
     this.retrieveFromServer();
-    // zip([
-    //   this.profileDetailsService.imageUrl$,
-    //   this.profileDetailsService.profileDetails$,
-    //   this.linksService.links$,
-    // ])
-    //   .pipe(
-    //     takeUntil(this.unsubscribes$),
-    //     tap(([image, userProfile, links]) => {
-    //       if (!image && !userProfile && !links.length) {
-    //         console.log('retrieveing from server');
-    //       }
-    //     }),
-    //     filter(
-    //       ([image, userProfile, links]) =>
-    //         !!image || !!userProfile || !!links.length
-    //     )
-    //   )
-    //   .subscribe(([image, userProfile, links]) => {
-    //     this.imageUrl = image;
-    //     this.profileDetails = userProfile;
-    //     this.links = links;
-    //     this.showSpinner = false;
-    //     this.changeDetector.detectChanges();
-    //   });
   }
 
   onOpenLink(link: string): void {
