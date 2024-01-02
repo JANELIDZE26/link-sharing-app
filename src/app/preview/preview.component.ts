@@ -80,36 +80,31 @@ export class PreviewComponent implements OnInit {
     }
 
     this.showSpinner = true;
-    zip([
-      this.profileDetailsService.imageUrl$,
-      this.profileDetailsService.profileDetails$,
-      this.linksService.links$,
-    ])
-      .pipe(
-        takeUntil(this.unsubscribes$),
-        tap(([image, userProfile, links]) => {
-          if (!image && !userProfile && !links.length) {
-            this.retrieveFromServer();
-          }
-        }),
-        filter(
-          ([image, userProfile, links]) =>
-            !!image || !!userProfile || !!links.length
-        )
-      )
-      .subscribe(
-        ([image, userProfile, links]) => {
-          this.imageUrl = image;
-          this.profileDetails = userProfile;
-          this.links = links;
-          this.showSpinner = false;
-          this.changeDetector.detectChanges();
-        },
-        () => {
-          this.showSpinner = false;
-          this.changeDetector.detectChanges();
-        }
-      );
+    this.retrieveFromServer();
+    // zip([
+    //   this.profileDetailsService.imageUrl$,
+    //   this.profileDetailsService.profileDetails$,
+    //   this.linksService.links$,
+    // ])
+    //   .pipe(
+    //     takeUntil(this.unsubscribes$),
+    //     tap(([image, userProfile, links]) => {
+    //       if (!image && !userProfile && !links.length) {
+    //         console.log('retrieveing from server');
+    //       }
+    //     }),
+    //     filter(
+    //       ([image, userProfile, links]) =>
+    //         !!image || !!userProfile || !!links.length
+    //     )
+    //   )
+    //   .subscribe(([image, userProfile, links]) => {
+    //     this.imageUrl = image;
+    //     this.profileDetails = userProfile;
+    //     this.links = links;
+    //     this.showSpinner = false;
+    //     this.changeDetector.detectChanges();
+    //   });
   }
 
   onOpenLink(link: string): void {
@@ -158,11 +153,11 @@ export class PreviewComponent implements OnInit {
   }
 
   deleteProfile(): void {
+    this.modalService.getModal('deleteProfile').close();
     this.api.deleteUserAccount(
       this.profileDetailsService.profileDetailsDocumentId!,
       this.linksService.linksDocumentId!
     );
-    this.modalService.getModal('deleteProfile').close();
   }
 
   private retrieveFromServer(): void {

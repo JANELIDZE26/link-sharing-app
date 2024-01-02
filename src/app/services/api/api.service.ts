@@ -138,7 +138,8 @@ export class ApiService {
         querySnapshot.forEach((doc) => {
           callBack(doc.id);
         });
-      });
+      })
+      .unsubscribe();
   }
 
   public async deleteUserAccount(
@@ -146,15 +147,25 @@ export class ApiService {
     linksDocumentId: string
   ): Promise<void> {
     try {
-      await this.firestore
-        .collection('profile-details')
-        .doc(profileDetailsDocumentId)
-        .delete();
-      console.log('profile details successfully deleted!');
+      if (profileDetailsDocumentId) {
+        await this.firestore
+          .collection('profile-details')
+          .doc(profileDetailsDocumentId)
+          .delete();
+        console.log('profile details successfully deleted!');
+      }
 
-      await this.firestore.collection('links').doc(linksDocumentId).delete();
+      if (linksDocumentId) {
+        await this.firestore.collection('links').doc(linksDocumentId).delete();
 
-      console.log('links successfully deleted!');
+        console.log('links successfully deleted!');
+      }
+
+      await this.storage.ref(this.auth.userId!).delete();
+
+      console.log('image successfully deleted!');
+
+      this.router.navigateByUrl('customize/links');
     } catch (error) {
       console.error(error);
     }
@@ -165,7 +176,6 @@ export class ApiService {
 
   private uploadImage(image: File): void {
     const ref = this.storage.ref(this.auth.userId!);
-
     ref
       .put(image)
       .then(() => {
