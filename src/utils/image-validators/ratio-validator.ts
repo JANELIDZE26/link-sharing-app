@@ -13,7 +13,7 @@ export const ratioValidator = (
       const width = image.width;
       const height = image.height;
 
-      if (width !== 1024 && height !== 1024) {
+      if (width < 1024 && height < 1024) {
         subscriber.next({
           [ImageValidation.pixelsRatioError]: ImageValidation.pixelsRatioError,
         });
