@@ -9,7 +9,6 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root',
 })
 export class LinksService {
-  public linksDocumentId: string | null = null;
   private _links$ = new BehaviorSubject<Map<string, Link>>(new Map());
   private currentlyEditing: Link | undefined;
 

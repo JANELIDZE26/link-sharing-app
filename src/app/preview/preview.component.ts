@@ -27,6 +27,7 @@ export class PreviewComponent implements OnInit {
   public links: Link[] | undefined;
   public showSpinner: boolean = false;
   public readonly PLATFORM = Platform;
+
   private unsubscribes$ = new Subject<void>();
   private modalConfiguration = {
     backdrop: true,
@@ -34,8 +35,10 @@ export class PreviewComponent implements OnInit {
     dismissable: true,
     closable: false,
   };
-  @ViewChild('logoutModal', { static: true }) logoutRef!: TemplateRef<any>;
+  private linksDocumentId: string | undefined;
+  private profileDetailsDocumentId: string | undefined;
 
+  @ViewChild('logoutModal', { static: true }) logoutRef!: TemplateRef<any>;
   @ViewChild('deleteProfileModal', { static: true })
   deleteProfileRef!: TemplateRef<any>;
 
@@ -65,17 +68,13 @@ export class PreviewComponent implements OnInit {
       this.modalConfiguration
     );
 
-    if (!this.profileDetailsService.profileDetailsDocumentId) {
-      this.api.getDocumentIdByUserId((documentId: string) => {
-        this.profileDetailsService.profileDetailsDocumentId = documentId;
-      }, 'profile-details');
-    }
+    this.api.getDocumentIdByUserId((documentId: string) => {
+      this.linksDocumentId = documentId;
+    }, 'links');
 
-    if (!this.linksService.linksDocumentId) {
-      this.api.getDocumentIdByUserId((documentId: string) => {
-        this.linksService.linksDocumentId = documentId;
-      }, 'links');
-    }
+    this.api.getDocumentIdByUserId((documentId: string) => {
+      this.profileDetailsDocumentId = documentId;
+    }, 'profile-details');
 
     this.showSpinner = true;
     this.retrieveFromServer();
@@ -86,6 +85,10 @@ export class PreviewComponent implements OnInit {
       window.open(link, '_blank');
     } else {
       console.error('Invalid link');
+      this.hotToast.show('Invalid Link', {
+        position: 'bottom-center',
+        className: 'toastrClass warning',
+      });
     }
   }
 
@@ -128,9 +131,10 @@ export class PreviewComponent implements OnInit {
 
   deleteProfile(): void {
     this.modalService.getModal('deleteProfile').close();
+
     this.api.deleteUserAccount(
-      this.profileDetailsService.profileDetailsDocumentId!,
-      this.linksService.linksDocumentId!
+      this.profileDetailsDocumentId!,
+      this.linksDocumentId!
     );
   }
 

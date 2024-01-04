@@ -20,13 +20,9 @@ import { Link } from 'src/models/interfaces/link';
 })
 export class CustomizeLinksComponent implements OnInit, OnDestroy {
   private unsubscribes$ = new Subject<void>();
-
+  private isEditMode = false;
   public isSaveDisabled: boolean = true;
   public links: Link[] | undefined;
-
-  private get isEditMode(): boolean {
-    return !!this.linksService.linksDocumentId;
-  }
 
   constructor(
     private linksService: LinksService,
@@ -40,6 +36,10 @@ export class CustomizeLinksComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.api.getDocumentIdByUserId((documentId: string) => {
+      this.isEditMode = !!documentId;
+    }, 'links');
+
     this.linksService.links$
       .pipe(takeUntil(this.unsubscribes$))
       .subscribe((links) => {
@@ -64,6 +64,8 @@ export class CustomizeLinksComponent implements OnInit, OnDestroy {
 
   onSave(): void {
     if (this.isSaveDisabled) return;
+    console.log(this.isEditMode);
+
     if (this.isEditMode) {
       this.api.editLinks(this.linksService.getLinksAsFirebaseObject());
     } else {

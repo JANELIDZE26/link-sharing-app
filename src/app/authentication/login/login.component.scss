@@ -57,8 +57,13 @@
 
     .create-account {
       margin-top: 0.3rem;
+      margin-bottom: 1rem;
       color: $purple;
       cursor: pointer;
+    }
+
+    .existing-account {
+      font-size: 1.2rem;
     }
   }
 }

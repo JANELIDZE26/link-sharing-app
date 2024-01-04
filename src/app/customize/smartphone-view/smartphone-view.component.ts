@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HotToastService } from '@ngneat/hot-toast';
 import { Observable } from 'rxjs';
 import { LinksService } from 'src/app/services/links/links.service';
 import { ProfileDetailsService } from 'src/app/services/profile-details/profile-details.service';
@@ -22,7 +23,8 @@ export class SmartphoneViewComponent {
 
   constructor(
     private linksService: LinksService,
-    private profileDetailsService: ProfileDetailsService
+    private profileDetailsService: ProfileDetailsService,
+    private hotToast: HotToastService
   ) {}
 
   onOpenLink(link: string): void {
@@ -30,6 +32,10 @@ export class SmartphoneViewComponent {
       window.open(link, '_blank');
     } else {
       console.error('Invalid link');
+      this.hotToast.show('Invalid Link', {
+        position: 'bottom-center',
+        className: 'toastrClass warning',
+      });
     }
   }
 

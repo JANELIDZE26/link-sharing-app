@@ -28,6 +28,10 @@
   @media (min-width: 560px) {
     display: unset;
   }
+
+  @media (max-height: 800px) {
+    height: 27rem;
+  }
 }
 
 .preview-header {
@@ -109,6 +113,10 @@
     box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.1);
     margin-top: 15rem;
   }
+
+  @media (max-height: 800px) {
+    margin-top: 5rem;
+  }
 }
 
 .details .logout {
@@ -128,7 +136,7 @@
   top: 2rem;
   left: 2rem;
   cursor: pointer;
-  
+
   &:hover {
     transform: scale(1.2);
   }

@@ -36,13 +36,6 @@ export class CustomizeComponent implements OnInit, OnDestroy {
       [SpinnerState.imageUrl]: true,
     });
 
-    this.api.getDocumentIdByUserId((documentId: string) => {
-      this.profileDetailsService.profileDetailsDocumentId = documentId;
-    }, 'profile-details');
-    this.api.getDocumentIdByUserId((documentId: string) => {
-      this.linksService.linksDocumentId = documentId;
-    }, 'links');
-
     this.api
       .getPreviewDetails()
       .pipe(takeUntil(this.unsubscribes$))

@@ -34,6 +34,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   public isDragOver: boolean = false;
   public isSaveDisabled: boolean = true;
   private unsubscribes$ = new Subject<void>();
+  private isEditMode: boolean = false;
 
   get FormControls() {
     return FormControls;
@@ -47,10 +48,6 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
     return this.profileDetailsForm.valid;
   }
 
-  get isEditMode() {
-    return !!this.profileDetailsService.profileDetailsDocumentId;
-  }
-
   get showImageSpinner(): boolean {
     return this.spinnerService.getSpinnerState(SpinnerState.imageUrl);
   }
@@ -61,7 +58,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService,
+    private api: ApiService,
     private profileDetailsService: ProfileDetailsService,
     private changeDetector: ChangeDetectorRef,
     private spinnerService: SpinnerService
@@ -77,6 +74,11 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
 
   public ngOnInit() {
     this.profileDetailsForm = this.buildEmptyForm();
+
+    this.api.getDocumentIdByUserId((documentId: string) => {
+      this.isEditMode = !!documentId;
+    }, 'profile-details');
+
     this.profileDetailsService.profileDetails$
       .pipe(takeUntil(this.unsubscribes$), take(2))
       .subscribe((userProfile) => {
@@ -117,9 +119,9 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   public onSave(): void {
     if (!this.isFormValid) return;
     if (this.isEditMode) {
-      this.apiService.editProfileDetails(this.profileDetailsForm.value);
+      this.api.editProfileDetails(this.profileDetailsForm.value);
     } else {
-      this.apiService.saveProfileDetails(this.profileDetailsForm.value);
+      this.api.saveProfileDetails(this.profileDetailsForm.value);
     }
   }
 

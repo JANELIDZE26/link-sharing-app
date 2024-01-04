@@ -6,7 +6,11 @@
     </div>
   </div>
 
-  <form #loginForm="ngForm" class="form" [class.validationError]="invalidCredentials">
+  <form
+    #loginForm="ngForm"
+    class="form"
+    [class.validationError]="invalidCredentials"
+  >
     <div class="form-group">
       <label for="email">Email address</label>
       <div class="input-container">
@@ -59,5 +63,8 @@
   <div class="footer">
     <div class="footer-description">Don’t have an account?</div>
     <div class="create-account" routerLink="../signup">Create account</div>
+    <div class="existing-account">
+      OR use existing account for testing purpose: test@test.com / 123123123
+    </div>
   </div>
 </div>

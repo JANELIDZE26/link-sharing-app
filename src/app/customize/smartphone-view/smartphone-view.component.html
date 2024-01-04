@@ -24,14 +24,14 @@
           >
             {{
               profileDetails.firstName
-                | shrinkString : 22 : true : profileDetails.lastName
+                | shrinkString : 20: true : profileDetails.lastName
             }}
           </div>
           <div
             class="email"
             [ngClass]="{ exists: profileDetails.email.length }"
           >
-            {{ profileDetails.email | shrinkString : 32 : false }}
+            {{ profileDetails.email | shrinkString : 20 : false }}
           </div>
         </ng-container>
       </div>

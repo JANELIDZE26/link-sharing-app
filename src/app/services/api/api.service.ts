@@ -139,7 +139,6 @@ export class ApiService {
           callBack(doc.id);
         });
       })
-      .unsubscribe();
   }
 
   public async deleteUserAccount(
