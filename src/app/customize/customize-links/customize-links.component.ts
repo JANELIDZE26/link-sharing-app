@@ -64,8 +64,6 @@ export class CustomizeLinksComponent implements OnInit, OnDestroy {
 
   onSave(): void {
     if (this.isSaveDisabled) return;
-    console.log(this.isEditMode);
-
     if (this.isEditMode) {
       this.api.editLinks(this.linksService.getLinksAsFirebaseObject());
     } else {

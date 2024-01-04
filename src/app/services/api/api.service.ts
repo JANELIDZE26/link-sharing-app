@@ -1,3 +1,4 @@
+import { HotToastService } from '@ngneat/hot-toast';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
@@ -19,7 +20,8 @@ export class ApiService {
     private storage: AngularFireStorage,
     private router: Router,
     private auth: AuthService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private hotToastService: HotToastService
   ) {}
 
   public addLinks(links: FirebaseLinks): void {
@@ -138,36 +140,48 @@ export class ApiService {
         querySnapshot.forEach((doc) => {
           callBack(doc.id);
         });
-      })
+      });
   }
 
   public async deleteUserAccount(
     profileDetailsDocumentId: string,
     linksDocumentId: string
   ): Promise<void> {
-    try {
-      if (profileDetailsDocumentId) {
-        await this.firestore
-          .collection('profile-details')
-          .doc(profileDetailsDocumentId)
-          .delete();
-        console.log('profile details successfully deleted!');
+    if (this.auth.userId === 'iEuEHt1Px2Sgy4PmDLc4foAI9cj1') {
+       this.hotToastService.show("HOW DARE YOU DELETING TEST ACCOUNT??", {
+        position: 'bottom-center',
+        className: 'toastrClass warning',
+      });
+      return;
+    };
+
+
+      try {
+        if (profileDetailsDocumentId) {
+          await this.firestore
+            .collection('profile-details')
+            .doc(profileDetailsDocumentId)
+            .delete();
+          console.log('profile details successfully deleted!');
+        }
+
+        if (linksDocumentId) {
+          await this.firestore
+            .collection('links')
+            .doc(linksDocumentId)
+            .delete();
+
+          console.log('links successfully deleted!');
+        }
+
+        await this.storage.ref(this.auth.userId!).delete();
+
+        console.log('image successfully deleted!');
+
+        this.router.navigateByUrl('customize/links');
+      } catch (error) {
+        console.error(error);
       }
-
-      if (linksDocumentId) {
-        await this.firestore.collection('links').doc(linksDocumentId).delete();
-
-        console.log('links successfully deleted!');
-      }
-
-      await this.storage.ref(this.auth.userId!).delete();
-
-      console.log('image successfully deleted!');
-
-      this.router.navigateByUrl('customize/links');
-    } catch (error) {
-      console.error(error);
-    }
   }
   public getPreviewDetails(): Observable<any> {
     return combineLatest([this.getProfileDetails(), this.getLinks()]);
